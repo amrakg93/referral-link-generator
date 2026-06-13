@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Referral Dashboard</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      color: #111;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header h1 { font-size: 18px; font-weight: 600; }
+    header span { font-size: 13px; color: #666; }
+
+    .container { max-width: 960px; margin: 0 auto; padding: 32px 16px; }
+
+    /* Product selector */
+    .setup {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .field label { font-size: 12px; font-weight: 500; color: #555; text-transform: uppercase; letter-spacing: .04em; }
+    .field input {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 9px 12px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .15s;
+    }
+    .field input:focus { border-color: #6366f1; }
+
+    button {
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .15s;
+      white-space: nowrap;
+    }
+    button:hover { background: #4f46e5; }
+    button.secondary {
+      background: #f0f0f0;
+      color: #333;
+    }
+    button.secondary:hover { background: #e0e0e0; }
+
+    /* Stat cards */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .stat-label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px; }
+    .stat-value { font-size: 28px; font-weight: 700; color: #111; }
+    .stat-sub { font-size: 12px; color: #aaa; margin-top: 4px; }
+
+    /* Generate link panel */
+    .panel {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .panel h2 { font-size: 15px; font-weight: 600; margin-bottom: 16px; }
+
+    .row { display: flex; gap: 12px; align-items: flex-end; }
+
+    .link-result {
+      margin-top: 16px;
+      background: #f8f8ff;
+      border: 1px solid #e0e0ff;
+      border-radius: 6px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .link-result code { flex: 1; font-size: 13px; color: #4f46e5; word-break: break-all; }
+    .link-result button { flex-shrink: 0; padding: 6px 14px; font-size: 13px; }
+
+    /* Links table */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: .04em; border-bottom: 1px solid #eee; }
+    td { padding: 12px; border-bottom: 1px solid #f0f0f0; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    .badge-green { background: #d1fae5; color: #065f46; }
+    .badge-grey  { background: #f0f0f0; color: #666; }
+
+    .empty { text-align: center; padding: 48px; color: #aaa; font-size: 14px; }
+
+    #error { color: #dc2626; font-size: 13px; margin-top: 8px; display: none; }
+    #loading { display: none; color: #888; font-size: 13px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+  </svg>
+  <h1>Referral Dashboard</h1>
+  <span id="product-label"></span>
+</header>
+
+<div class="container">
+
+  <!-- Product setup -->
+  <div class="setup">
+    <div class="field">
+      <label>Product ID</label>
+      <input id="productId" type="text" placeholder="my-saas-app" />
+    </div>
+    <button onclick="loadProduct()">Load</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">Links</div>
+      <div class="stat-value" id="s-links">—</div>
+      <div class="stat-sub">active referral links</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Clicks</div>
+      <div class="stat-value" id="s-clicks">—</div>
+      <div class="stat-sub">total link visits</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Conversions</div>
+      <div class="stat-value" id="s-conv">—</div>
+      <div class="stat-sub">paid sign-ups</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Conv. Rate</div>
+      <div class="stat-value" id="s-rate">—</div>
+      <div class="stat-sub">clicks → paid</div>
+    </div>
+  </div>
+
+  <!-- Generate link -->
+  <div class="panel">
+    <h2>Generate Referral Link</h2>
+    <div class="row">
+      <div class="field">
+        <label>Customer Email</label>
+        <input id="referrerEmail" type="email" placeholder="customer@example.com" />
+      </div>
+      <div class="field" style="max-width:200px">
+        <label>Stripe Customer ID (optional)</label>
+        <input id="stripeCustomerId" type="text" placeholder="cus_..." />
+      </div>
+      <button onclick="generateLink()">Generate Link</button>
+    </div>
+    <div id="error"></div>
+    <div id="link-result" style="display:none" class="link-result">
+      <code id="link-url"></code>
+      <button class="secondary" onclick="copyLink()">Copy</button>
+    </div>
+  </div>
+
+  <!-- Links table -->
+  <div class="panel">
+    <h2>All Referral Links</h2>
+    <div id="loading">Loading…</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Referrer</th>
+            <th>Clicks</th>
+            <th>Conversions</th>
+            <th>Rate</th>
+            <th>Reward Balance</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody id="links-body">
+          <tr><td colspan="7" class="empty">Load a product to see links</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let currentProductId = '';
+
+  async function api(path, opts = {}) {
+    const res = await fetch('/api' + path, {
+      headers: { 'Content-Type': 'application/json' },
+      ...opts,
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Request failed');
+    return data;
+  }
+
+  async function loadProduct() {
+    const pid = document.getElementById('productId').value.trim();
+    if (!pid) return;
+    currentProductId = pid;
+    document.getElementById('product-label').textContent = pid;
+    await Promise.all([loadStats(), loadLinks()]);
+  }
+
+  async function loadStats() {
+    try {
+      const s = await api(`/stats/${encodeURIComponent(currentProductId)}`);
+      document.getElementById('s-links').textContent = s.totalLinks;
+      document.getElementById('s-clicks').textContent = s.totalClicks;
+      document.getElementById('s-conv').textContent = s.totalConversions;
+      document.getElementById('s-rate').textContent = s.conversionRate + '%';
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function loadLinks() {
+    document.getElementById('loading').style.display = 'block';
+    try {
+      const links = await api(`/links?productId=${encodeURIComponent(currentProductId)}`);
+      renderLinks(links);
+    } catch (e) {
+      // endpoint returns stats-only; table populated via generate flow for now
+      renderLinks([]);
+    } finally {
+      document.getElementById('loading').style.display = 'none';
+    }
+  }
+
+  function renderLinks(links) {
+    const tbody = document.getElementById('links-body');
+    if (!links.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="empty">No referral links yet — generate one above</td></tr>';
+      return;
+    }
+    tbody.innerHTML = links.map(l => {
+      const rate = l.clicks > 0 ? ((l.conversions / l.clicks) * 100).toFixed(0) + '%' : '—';
+      const balance = l.reward_balance != null ? `$${(l.reward_balance / 100).toFixed(2)}` : '—';
+      const badge = l.conversions > 0
+        ? `<span class="badge badge-green">${l.conversions} conv.</span>`
+        : `<span class="badge badge-grey">0 conv.</span>`;
+      return `<tr>
+        <td><code>${l.code}</code></td>
+        <td>${l.referrer_email || '—'}</td>
+        <td>${l.clicks}</td>
+        <td>${badge}</td>
+        <td>${rate}</td>
+        <td>${balance}</td>
+        <td><a href="${l.link_url}" target="_blank" style="color:#6366f1;font-size:12px">Open ↗</a></td>
+      </tr>`;
+    }).join('');
+  }
+
+  async function generateLink() {
+    const errEl = document.getElementById('error');
+    errEl.style.display = 'none';
+
+    if (!currentProductId) {
+      errEl.textContent = 'Load a product first';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    const email = document.getElementById('referrerEmail').value.trim();
+    if (!email) {
+      errEl.textContent = 'Customer email is required';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    try {
+      const data = await api('/links', {
+        method: 'POST',
+        body: JSON.stringify({
+          productId: currentProductId,
+          referrerEmail: email,
+          stripeCustomerId: document.getElementById('stripeCustomerId').value.trim() || undefined,
+        }),
+      });
+
+      document.getElementById('link-url').textContent = data.url;
+      document.getElementById('link-result').style.display = 'flex';
+      await Promise.all([loadStats(), loadLinks()]);
+    } catch (e) {
+      errEl.textContent = e.message;
+      errEl.style.display = 'block';
+    }
+  }
+
+  function copyLink() {
+    const url = document.getElementById('link-url').textContent;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.querySelector('#link-result button');
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 1500);
+    });
+  }
+
+  // Allow Enter key in productId field
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('productId').addEventListener('keydown', e => {
+      if (e.key === 'Enter') loadProduct();
+    });
+  });
+</script>
+
+</body>
+</html>

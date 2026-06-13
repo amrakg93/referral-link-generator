@@ -1,0 +1,23 @@
+{
+  "name": "referral-link-generator",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Stripe-powered referral link generator for micro-SaaS",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.0",
+    "express": "^4.21.0",
+    "helmet": "^8.0.0",
+    "stripe": "^17.0.0"
+  },
+  "devDependencies": {
+    "sql.js": "^1.14.1"
+  }
+}
