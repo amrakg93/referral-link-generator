@@ -43,7 +43,7 @@
     }
 
     body {
-      font-family: ''''''''Source Sans 3'''''''', system-ui, -apple-system, ''''''''Segoe UI'''''''', Roboto, sans-serif;
+      font-family: ''''''''''''''''Source Sans 3'''''''''''''''', system-ui, -apple-system, ''''''''''''''''Segoe UI'''''''''''''''', Roboto, sans-serif;
       font-feature-settings: "ss01";
       font-weight: 300;
       color: var(--color-heading);
@@ -55,8 +55,8 @@
 
     a { color: var(--color-accent); text-decoration: none; font-weight: 400; }
     a:hover { color: var(--color-accent-hover); text-decoration: underline; }
-    code { font-family: ''''''''Source Code Pro'''''''', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.875em; background: #f5f5f5; padding: 2px 6px; border-radius: var(--radius-sm); }
-    pre { font-family: ''''''''Source Code Pro'''''''', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; line-height: 2; background: #0d253d; color: #e5edf5; padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto; }
+    code { font-family: ''''''''''''''''Source Code Pro'''''''''''''''', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.875em; background: #f5f5f5; padding: 2px 6px; border-radius: var(--radius-sm); }
+    pre { font-family: ''''''''''''''''Source Code Pro'''''''''''''''', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; line-height: 2; background: #0d253d; color: #e5edf5; padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto; }
 
     .container { width: 100%; max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-4); }
 
@@ -89,7 +89,7 @@
 
     /* Hero visual placeholder */
     .hero-visual { margin-top: var(--space-16); position: relative; }
-    .hero-visual::before { content: ''''''''''''''''; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 300px; height: 200px; background: linear-gradient(135deg, rgba(234,34,97,0.15) 0%, rgba(249,107,238,0.15) 100%); border-radius: 50%; filter: blur(60px); pointer-events: none; }
+    .hero-visual::before { content: ''''''''''''''''''''''''''''''''; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 300px; height: 200px; background: linear-gradient(135deg, rgba(234,34,97,0.15) 0%, rgba(249,107,238,0.15) 100%); border-radius: 50%; filter: blur(60px); pointer-events: none; }
     .hero-code { background: #0d253d; border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-md); padding: var(--space-6); text-align: left; max-width: 720px; margin: 0 auto; box-shadow: var(--shadow-blue) 0px 30px 45px -30px, var(--shadow-black) 0px 18px 36px -18px; }
     .hero-code .code-line { display: block; line-height: 2; }
     .hero-code .code-comment { color: #64748d; }
@@ -135,7 +135,7 @@
     .steps { display: grid; gap: var(--space-8); }
     @media (min-width: 640px) { .steps { grid-template-columns: repeat(3, 1fr); } }
     .step { position: relative; padding-left: var(--space-10); }
-    .step::before { content: counter(step); counter-increment: step; position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--color-accent); color: #fff; font-size: 16px; font-weight: 400; display: flex; align-items: center; justify-content: center; font-family: ''''''''Source Serif 4'''''''', Georgia, serif; font-feature-settings: normal; }
+    .step::before { content: counter(step); counter-increment: step; position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--color-accent); color: #fff; font-size: 16px; font-weight: 400; display: flex; align-items: center; justify-content: center; font-family: ''''''''''''''''Source Serif 4'''''''''''''''', Georgia, serif; font-feature-settings: normal; }
     ol.steps { counter-reset: step; }
     .step h3 { font-size: 22px; font-weight: 300; line-height: 1.1; letter-spacing: -0.22px; color: #fff; margin-bottom: var(--space-2); }
     .step p { font-size: 16px; font-weight: 300; line-height: 1.4; color: rgba(255,255,255,0.85); }
@@ -201,13 +201,13 @@
   <div class="container nav-inner">
     <a href="/" class="nav-logo" aria-label="Referral Link Generator home">Referral Link Generator</a>
     <div class="nav-links">
-      <a href="#features">Features</a>
+      <a href="/#features">Features</a>
       <a href="#how-it-works">How it works</a>
-      <a href="pricing">Pricing</a>
+      <a href="/pricing">Pricing</a>
       <a href="https://github.com/amrakg93/referral-link-generator" target="_blank" rel="noopener">Docs</a>
     </div>
     <div class="nav-cta">
-      <a href="pricing" class="btn btn-ghost">Pricing</a>
+      <a href="/pricing" class="btn btn-ghost">Pricing</a>
       <a href="https://github.com/amrakg93/referral-link-generator" target="_blank" rel="noopener" class="btn btn-primary">Get started</a>
     </div>
   </div>
@@ -219,7 +219,7 @@
     <h1 class="animate-in delay-1">Stripe-native referrals for indie hackers</h1>
     <p class="animate-in delay-2">The only referral engine built for pre-revenue founders. $0/mo until you make money. Embed in 2 lines. No dashboard to learn.</p>
     <div class="hero-cta animate-in delay-3">
-      <a href="pricing" class="btn btn-primary btn-large">Start free — pay 5% of referral revenue</a>
+      <a href="/pricing" class="btn btn-primary btn-large">Start free — pay 5% of referral revenue</a>
       <a href="https://github.com/amrakg93/referral-link-generator" target="_blank" rel="noopener" class="btn btn-ghost btn-large">View on GitHub</a>
     </div>
     <p class="hero-trust animate-in delay-4">No credit card · Cancel anytime · Your Stripe account, your data</p>
@@ -227,12 +227,12 @@
     <div class="hero-visual animate-in delay-4">
       <pre class="hero-code"><code><span class="code-line"><span class="code-comment">// 1. Drop embed script</span></span>
 <span class="code-line"><span class="code-keyword">&lt;script </span><span class="code-function">src</span><span class="code-keyword">="https://reflinkgen.com/embed.js"&gt;&lt;/script&gt;</span></span>
-<span class="code-line"><span class="code-comment">// 2. Initialize with user''''''''s email</span></span>
+<span class="code-line"><span class="code-comment">// 2. Initialize with user''''''''''''''''s email</span></span>
 <span class="code-line"><span class="code-keyword">ReferralWidget</span><span class="code-function">.init</span><span class="code-keyword">({</span></span>
-<span class="code-line">  <span class="code-function">host</span><span class="code-keyword">:</span> <span class="code-string">''''''''https://reflinkgen.com''''''''</span><span class="code-keyword">,</span></span>
-<span class="code-line">  <span class="code-function">productId</span><span class="code-keyword">:</span> <span class="code-string">''''''''my-saas-app''''''''</span><span class="code-keyword">,</span></span>
-<span class="code-line">  <span class="code-function">referrerEmail</span><span class="code-keyword">:</span> <span class="code-string">''''''''currentUser.email''''''''</span><span class="code-keyword">,</span></span>
-<span class="code-line">  <span class="code-function">container</span><span class="code-keyword">:</span> <span class="code-string">''''''''#referral-widget''''''''</span></span>
+<span class="code-line">  <span class="code-function">host</span><span class="code-keyword">:</span> <span class="code-string">''''''''''''''''https://reflinkgen.com''''''''''''''''</span><span class="code-keyword">,</span></span>
+<span class="code-line">  <span class="code-function">productId</span><span class="code-keyword">:</span> <span class="code-string">''''''''''''''''my-saas-app''''''''''''''''</span><span class="code-keyword">,</span></span>
+<span class="code-line">  <span class="code-function">referrerEmail</span><span class="code-keyword">:</span> <span class="code-string">''''''''''''''''currentUser.email''''''''''''''''</span><span class="code-keyword">,</span></span>
+<span class="code-line">  <span class="code-function">container</span><span class="code-keyword">:</span> <span class="code-string">''''''''''''''''#referral-widget''''''''''''''''</span></span>
 <span class="code-line"><span class="code-keyword">});</span></span></code></pre>
     </div>
   </div>
@@ -253,7 +253,7 @@
       <article class="card animate-in delay-2">
         <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
         <h3>2-line embed</h3>
-        <p>Drop <code>embed.js</code>, call <code>ReferralWidget.init()</code> with the user''''''''s email. Widget renders instantly — link, copy, share buttons.</p>
+        <p>Drop <code>embed.js</code>, call <code>ReferralWidget.init()</code> with the user''''''''''''''''s email. Widget renders instantly — link, copy, share buttons.</p>
       </article>
       <article class="card animate-in delay-3">
         <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -393,7 +393,7 @@
         </div>
       </article>
       <article class="testimonial animate-in delay-2">
-        <p class="testimonial-text">"Finally, a referral tool that doesn''''''''t cost more than my MRR. The revenue-share model aligns incentives perfectly."</p>
+        <p class="testimonial-text">"Finally, a referral tool that doesn''''''''''''''''t cost more than my MRR. The revenue-share model aligns incentives perfectly."</p>
         <div class="testimonial-author">
           <div class="testimonial-avatar" aria-hidden="true"></div>
           <div>
@@ -420,7 +420,7 @@
   <div class="container">
     <h2 id="cta-heading">Ready to add referrals?</h2>
     <p>Deploy in minutes. Pay only when referrals make you money.</p>
-    <a href="pricing" class="btn btn-primary btn-large">Deploy on Railway</a>
+    <a href="/pricing" class="btn btn-primary btn-large">Deploy on Railway</a>
   </div>
 </section>
 
@@ -433,24 +433,24 @@
       </div>
       <nav class="footer-col">
         <h4>Product</h4>
-        <a href="#features">Features</a>
-        <a href="pricing">Pricing</a>
+        <a href="/#features">Features</a>
+        <a href="/pricing">Pricing</a>
         <a href="https://github.com/amrakg93/referral-link-generator" target="_blank" rel="noopener">Documentation</a>
         <a href="https://github.com/amrakg93/referral-link-generator" target="_blank" rel="noopener">GitHub</a>
       </nav>
       <nav class="footer-col">
         <h4>Resources</h4>
-        <a href="#">Blog</a>
-        <a href="#">Integration guide</a>
-        <a href="#">API reference</a>
-        <a href="#">Changelog</a>
+        <a href="https://github.com/amrakg93/referral-link-generator/wiki" target="_blank" rel="noopener">Blog</a>
+        <a href="https://github.com/amrakg93/referral-link-generator/blob/main/INTEGRATION.md" target="_blank" rel="noopener">Integration guide</a>
+        <a href="https://github.com/amrakg93/referral-link-generator/blob/main/API.md" target="_blank" rel="noopener">API reference</a>
+        <a href="https://github.com/amrakg93/referral-link-generator/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a>
       </nav>
       <nav class="footer-col">
         <h4>Company</h4>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
+        <a href="https://github.com/amrakg93/referral-link-generator" target="_blank" rel="noopener">About</a>
+        <a href="mailto:hello@reflinkgen.com">Contact</a>
+        <a href="https://github.com/amrakg93/referral-link-generator/blob/main/PRIVACY.md" target="_blank" rel="noopener">Privacy</a>
+        <a href="https://github.com/amrakg93/referral-link-generator/blob/main/TERMS.md" target="_blank" rel="noopener">Terms</a>
       </nav>
     </div>
     <div class="footer-bottom">
@@ -462,25 +462,27 @@
 
 <script>
   // IntersectionObserver for scroll animations
-  const prefersReduced = window.matchMedia(''''''''(prefers-reduced-motion: reduce)'''''''').matches;
+  const prefersReduced = window.matchMedia(''''''''''''''''(prefers-reduced-motion: reduce)'''''''''''''''').matches;
   if (!prefersReduced) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.style.animationPlayState = ''''''''running'''''''';
+          entry.target.style.animationPlayState = ''''''''''''''''running'''''''''''''''';
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: ''''''''0px 0px -50px 0px'''''''' });
+    }, { threshold: 0.1, rootMargin: ''''''''''''''''0px 0px -50px 0px'''''''''''''''' });
 
-    document.querySelectorAll(''''''''.animate-in'''''''').forEach(el => {
-      el.style.animationPlayState = ''''''''paused'''''''';
+    document.querySelectorAll(''''''''''''''''.animate-in'''''''''''''''').forEach(el => {
+      el.style.animationPlayState = ''''''''''''''''paused'''''''''''''''';
       observer.observe(el);
     });
   }
 </script>
 </body>
 </html>
+
+
 
 
 
