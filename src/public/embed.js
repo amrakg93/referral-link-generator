@@ -5,10 +5,10 @@
  * It will fetch (or create) their referral link and render a small share widget.
  *
  * Usage:
- *   <script src="https://your-referral-app.com/embed.js"></script>
+ *   <script src="https://reflinkgen.com/embed.js"></script>
  *   <script>
  *     ReferralWidget.init({
- *       host: 'https://your-referral-app.com',  // where this server is running
+ *       host: 'https://reflinkgen.com',  // where this server is running
  *       productId: 'my-saas-app',
  *       referrerEmail: currentUser.email,        // logged-in user's email
  *       container: '#referral-widget',           // CSS selector for mount point
