@@ -14,8 +14,15 @@ function requirePro(req, res, next) {
   if (!stripeCustomerId) return res.status(401).json({ error: 'Authentication required' });
 
   const db = getDb();
-  const sub = db.prepare('SELECT * FROM subscriptions WHERE stripe_customer_id = ?').get(stripeCustomerId);
-  if (!sub) return res.status(403).json({ error: 'No subscription found' });
+  let sub = db.prepare('SELECT * FROM subscriptions WHERE stripe_customer_id = ?').get(stripeCustomerId);
+
+  // Auto-provision a free tier subscription for first-time users
+  if (!sub) {
+    const id = crypto.randomBytes(8).toString('hex');
+    db.prepare(`INSERT INTO subscriptions (id, stripe_customer_id, status, tier) VALUES (?, ?, 'active', 'free')`)
+      .run(id, stripeCustomerId);
+    sub = db.prepare('SELECT * FROM subscriptions WHERE id = ?').get(id);
+  }
 
   if (sub.tier !== 'pro' && sub.status !== 'active') {
     return res.status(403).json({ error: 'Pro plan required', upgradeUrl: '/pricing' });
