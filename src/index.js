@@ -12,7 +12,14 @@ const subscriptionRoutes = require('./routes/subscriptions');
 
 const app = express();
 
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      'script-src': ["'self'", "'unsafe-inline'"],
+      'script-src-attr': ["'unsafe-inline'"],
+    },
+  },
+}));
 app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
 
 // Webhook route must come before express.json() — Stripe needs the raw body
