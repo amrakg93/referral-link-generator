@@ -23,7 +23,7 @@ router.get('/checkout/pro-monthly', async (req, res) => {
     res.redirect(303, session.url);
   } catch (err) {
     console.error('Checkout redirect error:', err.message);
-    res.status(500).send('Checkout unavailable — try again');
+    res.status(500).send(`Checkout unavailable: ${err.message}`);
   }
 });
 
@@ -40,7 +40,7 @@ router.get('/checkout/pro-annual', async (req, res) => {
     res.redirect(303, session.url);
   } catch (err) {
     console.error('Checkout redirect error:', err.message);
-    res.status(500).send('Checkout unavailable — try again');
+    res.status(500).send(`Checkout unavailable: ${err.message}`);
   }
 });
 
