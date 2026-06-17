@@ -10,6 +10,40 @@ function uid() {
   return crypto.randomBytes(8).toString('hex');
 }
 
+// Redirect to Stripe Checkout for Pro monthly plan
+router.get('/checkout/pro-monthly', async (req, res) => {
+  try {
+    const stripe = getStripe();
+    const session = await stripe.checkout.sessions.create({
+      mode: 'subscription',
+      line_items: [{ price: config.STRIPE_PRO_MONTHLY_PRICE_ID, quantity: 1 }],
+      success_url: `${config.BASE_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${config.BASE_URL}/pricing`,
+    });
+    res.redirect(303, session.url);
+  } catch (err) {
+    console.error('Checkout redirect error:', err.message);
+    res.status(500).send('Checkout unavailable — try again');
+  }
+});
+
+// Redirect to Stripe Checkout for Pro annual plan
+router.get('/checkout/pro-annual', async (req, res) => {
+  try {
+    const stripe = getStripe();
+    const session = await stripe.checkout.sessions.create({
+      mode: 'subscription',
+      line_items: [{ price: config.STRIPE_PRO_ANNUAL_PRICE_ID, quantity: 1 }],
+      success_url: `${config.BASE_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${config.BASE_URL}/pricing`,
+    });
+    res.redirect(303, session.url);
+  } catch (err) {
+    console.error('Checkout redirect error:', err.message);
+    res.status(500).send('Checkout unavailable — try again');
+  }
+});
+
 // Create a Stripe Checkout session for subscribing to a plan
 router.post('/create-checkout-session', async (req, res) => {
   const { priceId } = req.body;
