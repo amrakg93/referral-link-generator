@@ -7,6 +7,8 @@ const config = require('./config');
 const { initDb } = require('./models/db');
 const referralRoutes = require('./routes/referrals');
 const webhookRoutes = require('./routes/webhooks');
+const reviewRoutes = require('./routes/reviews');
+const subscriptionRoutes = require('./routes/subscriptions');
 
 const app = express();
 
@@ -30,6 +32,8 @@ app.get('/dashboard', (req, res) => res.sendFile('index.html', { root: 'src/publ
 app.use(express.static('src/public'));
 
 app.use('/api', referralRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/subscriptions', subscriptionRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', version: '0.1.0' });

@@ -135,6 +135,25 @@
 
     .empty { text-align: center; padding: 48px; color: #aaa; font-size: 14px; }
 
+    /* Tabs */
+    .tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 1px solid #e5e5e5; }
+    .tab {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #888;
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
+    }
+    .tab:hover { color: #111; }
+    .tab.active { color: #6366f1; border-bottom-color: #6366f1; }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
     #error { color: #dc2626; font-size: 13px; margin-top: 8px; display: none; }
     #loading { display: none; color: #888; font-size: 13px; }
   </style>
@@ -153,6 +172,15 @@
 </header>
 
 <div class="container">
+
+  <!-- Tab navigation -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('referrals')">Referrals</button>
+    <button class="tab" onclick="switchTab('reviews')">Reviews</button>
+  </div>
+
+  <!-- Referral panel -->
+  <div id="tab-referrals" class="tab-panel active">
 
   <!-- Product setup -->
   <div class="setup">
@@ -230,11 +258,95 @@
         </tbody>
       </table>
     </div>
+  </div><!-- end links table panel -->
+
+  </div><!-- end tab-referrals -->
+
+  <!-- Reviews panel -->
+  <div id="tab-reviews" class="tab-panel">
+
+  <!-- Review product setup -->
+  <div class="setup">
+  <div class="field">
+    <label>Review Product ID</label>
+    <input id="reviewProductId" type="text" placeholder="my-saas-app" />
+  </div>
+  <div class="field">
+    <label>G2 URL (optional)</label>
+    <input id="g2Url" type="text" placeholder="https://www.g2.com/..." />
+  </div>
+  <div class="field">
+    <label>Capterra URL (optional)</label>
+    <input id="capterraUrl" type="text" placeholder="https://www.capterra.com/..." />
+  </div>
+  <button onclick="createReviewProduct()">Setup</button>
   </div>
 
-</div>
+  <!-- Review stats -->
+  <div class="stats">
+  <div class="stat">
+    <div class="stat-label">Users Tracked</div>
+    <div class="stat-value" id="rv-users">—</div>
+    <div class="stat-sub">total tracked users</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Requests Sent</div>
+    <div class="stat-value" id="rv-requested">—</div>
+    <div class="stat-sub">review requests</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Reviews</div>
+    <div class="stat-value" id="rv-submitted">—</div>
+    <div class="stat-sub">submitted reviews</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Conversion</div>
+    <div class="stat-value" id="rv-rate">—</div>
+    <div class="stat-sub">tracked → reviewed</div>
+  </div>
+  </div>
 
-<script>
+  <!-- Track user -->
+  <div class="panel">
+  <h2>Track User Activity</h2>
+  <div class="row">
+    <div class="field">
+      <label>User ID (email or unique ID)</label>
+      <input id="trackUserId" type="text" placeholder="user@example.com" />
+    </div>
+    <div class="field" style="max-width:200px">
+      <label>User Name (optional)</label>
+      <input id="trackUserName" type="text" placeholder="Jane" />
+    </div>
+    <button onclick="trackUser()">Track Usage</button>
+  </div>
+  <div id="track-result" style="margin-top:12px; font-size:14px; display:none;"></div>
+  </div>
+
+  <!-- Manual review request -->
+  <div class="panel">
+  <h2>Request a Review</h2>
+  <div class="row">
+    <div class="field">
+      <label>User ID</label>
+      <input id="requestUserId" type="text" placeholder="user@example.com" />
+    </div>
+    <div class="field" style="max-width:180px">
+      <label>Platform</label>
+      <select id="requestPlatform" style="padding:10px;border:1px solid #ddd;border-radius:6px;font-size:14px;">
+        <option value="g2">G2</option>
+        <option value="capterra">Capterra</option>
+      </select>
+    </div>
+    <button onclick="requestReview()">Send Request</button>
+  </div>
+  </div>
+
+  </div><!-- end tab-reviews -->
+
+  </div>
+
+  <script>
   let currentProductId = '';
 
   async function api(path, opts = {}) {
@@ -355,6 +467,94 @@
       if (e.key === 'Enter') loadProduct();
     });
   });
+
+  // --- Tab switching ---
+  function switchTab(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelector(`.tab:nth-child(${name === 'referrals' ? 1 : 2})`).classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+
+  // --- Reviews API ---
+  async function reviewApi(path, opts = {}) {
+    const res = await fetch('/api/reviews' + path, {
+      headers: { 'Content-Type': 'application/json', 'x-stripe-customer-id': 'demo' },
+      ...opts,
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Request failed');
+    return data;
+  }
+
+  let reviewProductId = '';
+
+  async function createReviewProduct() {
+    const name = document.getElementById('reviewProductId').value.trim();
+    if (!name) return alert('Product ID required');
+    reviewProductId = name;
+    try {
+      await reviewApi('/products', {
+        method: 'POST',
+        body: JSON.stringify({
+          name,
+          g2Url: document.getElementById('g2Url').value.trim() || undefined,
+          capterraUrl: document.getElementById('capterraUrl').value.trim() || undefined,
+        }),
+      });
+      await loadReviewStats();
+    } catch (e) { alert(e.message); }
+  }
+
+  async function loadReviewStats() {
+    if (!reviewProductId) return;
+    try {
+      const s = await reviewApi(`/stats/${encodeURIComponent(reviewProductId)}`);
+      document.getElementById('rv-users').textContent = s.totalUsers;
+      document.getElementById('rv-requested').textContent = s.reviewRequested;
+      document.getElementById('rv-submitted').textContent = s.reviewSubmitted;
+      document.getElementById('rv-rate').textContent = s.conversionRate + '%';
+    } catch (e) { console.error(e); }
+  }
+
+  async function trackUser() {
+    const uid = document.getElementById('trackUserId').value.trim();
+    if (!uid) return alert('User ID required');
+    if (!reviewProductId) return alert('Setup a review product first');
+    try {
+      const r = await reviewApi('/track', {
+        method: 'POST',
+        body: JSON.stringify({
+          productId: reviewProductId,
+          userId: uid,
+          email: uid.includes('@') ? uid : undefined,
+          name: document.getElementById('trackUserName').value.trim() || undefined,
+        }),
+      });
+      document.getElementById('track-result').style.display = 'block';
+      document.getElementById('track-result').textContent =
+        `Usage count: ${r.usageCount} | Review ready: ${r.reviewReady ? '✅ Yes' : '❌ Not yet'}`;
+      await loadReviewStats();
+    } catch (e) { alert(e.message); }
+  }
+
+  async function requestReview() {
+    const uid = document.getElementById('requestUserId').value.trim();
+    if (!uid) return alert('User ID required');
+    if (!reviewProductId) return alert('Setup a review product first');
+    try {
+      await reviewApi('/request', {
+        method: 'POST',
+        body: JSON.stringify({
+          productId: reviewProductId,
+          userId: uid,
+          platform: document.getElementById('requestPlatform').value,
+        }),
+      });
+      alert('Review request sent!');
+      await loadReviewStats();
+    } catch (e) { alert(e.message); }
+  }
 </script>
 
 </body>

@@ -51,6 +51,54 @@ function initDb() {
       created_at TEXT DEFAULT (datetime('now')),
       FOREIGN KEY (link_id) REFERENCES referral_links(id)
     );
+
+    -- Subscriptions (Growth Stack billing)
+    CREATE TABLE IF NOT EXISTS subscriptions (
+      id TEXT PRIMARY KEY,
+      stripe_customer_id TEXT,
+      stripe_subscription_id TEXT,
+      price_id TEXT,
+      status TEXT DEFAULT 'active',
+      tier TEXT DEFAULT 'free',
+      created_at TEXT DEFAULT (datetime('now')),
+      updated_at TEXT DEFAULT (datetime('now'))
+    );
+
+    -- Reviews (G2 / Capterra review requests)
+    CREATE TABLE IF NOT EXISTS review_products (
+      id TEXT PRIMARY KEY,
+      subscription_id TEXT,
+      name TEXT NOT NULL,
+      owner_email TEXT,
+      g2_url TEXT,
+      capterra_url TEXT,
+      created_at TEXT DEFAULT (datetime('now')),
+      FOREIGN KEY (subscription_id) REFERENCES subscriptions(id)
+    );
+
+    CREATE TABLE IF NOT EXISTS review_users (
+      id TEXT PRIMARY KEY,
+      product_id TEXT NOT NULL,
+      email TEXT,
+      name TEXT,
+      usage_count INTEGER DEFAULT 0,
+      happiness_score REAL DEFAULT 0,
+      review_requested INTEGER DEFAULT 0,
+      review_submitted INTEGER DEFAULT 0,
+      created_at TEXT DEFAULT (datetime('now')),
+      FOREIGN KEY (product_id) REFERENCES review_products(id)
+    );
+
+    CREATE TABLE IF NOT EXISTS review_requests (
+      id TEXT PRIMARY KEY,
+      product_id TEXT NOT NULL,
+      user_id TEXT NOT NULL,
+      platform TEXT DEFAULT 'g2',
+      sent_at TEXT,
+      opened INTEGER DEFAULT 0,
+      clicked INTEGER DEFAULT 0,
+      created_at TEXT DEFAULT (datetime('now'))
+    );
   `);
 
   return db;
