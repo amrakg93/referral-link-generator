@@ -33,6 +33,7 @@ app.get('/', (req, res) => res.sendFile('landing.html', { root: 'src/public' }))
 app.get('/pricing', (req, res) => res.sendFile('pricing.html', { root: 'src/public' }));
 app.get('/privacy', (req, res) => res.sendFile('privacy.html', { root: 'src/public' }));
 app.get('/terms', (req, res) => res.sendFile('terms.html', { root: 'src/public' }));
+app.get('/about', (req, res) => res.sendFile('about.html', { root: 'src/public' }));
 
 // Dashboard (moved from root)
 app.get('/dashboard', (req, res) => res.sendFile('index.html', { root: 'src/public' }));
