@@ -9,6 +9,7 @@ const referralRoutes = require('./routes/referrals');
 const webhookRoutes = require('./routes/webhooks');
 const reviewRoutes = require('./routes/reviews');
 const subscriptionRoutes = require('./routes/subscriptions');
+const cronRoutes = require('./routes/cron');
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use(express.static('src/public'));
 app.use('/api', referralRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/subscriptions', subscriptionRoutes);
+app.use('/api', cronRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', version: '0.1.0' });
@@ -63,6 +65,63 @@ async function start() {
   const server = app.listen(config.PORT, () => {
     console.log(`Referral Link Generator running on :${config.PORT}`);
   });
+
+  // ── Scheduled email tasks (node-cron) ──────────────────────────────────
+  try {
+    const cron = require('node-cron');
+    const { weeklyDigest, reEngagement } = require('./services/notifications');
+    const { getDb } = require('./models/db');
+
+    // Weekly digest — every Monday at 9:00 AM
+    cron.schedule('0 9 * * 1', async () => {
+      console.log('[cron] Running weekly digest...');
+      const db = getDb();
+      const referrers = db.prepare(`
+        SELECT DISTINCT r.id, r.email, r.reward_balance
+        FROM referrers r
+        JOIN referral_links rl ON rl.referrer_id = r.id
+        WHERE rl.created_at >= datetime('now', '-7 days')
+      `).all();
+
+      for (const ref of referrers) {
+        const stats = db.prepare(`
+          SELECT
+            COALESCE(SUM(rl.clicks), 0) AS clicks,
+            COALESCE(SUM(rl.conversions), 0) AS conversions
+          FROM referral_links rl
+          WHERE rl.referrer_id = ? AND rl.created_at >= datetime('now', '-7 days')
+        `).get(ref.id);
+
+        await weeklyDigest(ref.email, stats.clicks, stats.conversions, ref.reward_balance || 0);
+      }
+      console.log(`[cron] Weekly digest sent to ${referrers.length} referrers`);
+    });
+
+    // Re-engagement — daily at 12:00 PM, for referrers inactive 30+ days
+    cron.schedule('0 12 * * *', async () => {
+      console.log('[cron] Running re-engagement check...');
+      const db = getDb();
+      const inactive = db.prepare(`
+        SELECT r.id, r.email,
+               CAST(julianday('now') - julianday(MAX(rl.created_at)) AS INTEGER) AS days_since_last
+        FROM referrers r
+        JOIN referral_links rl ON rl.referrer_id = r.id
+        GROUP BY r.id
+        HAVING days_since_last >= 30
+      `).all();
+
+      for (const ref of inactive) {
+        await reEngagement(ref.email, ref.days_since_last);
+      }
+      console.log(`[cron] Re-engagement sent to ${inactive.length} inactive referrers`);
+    });
+
+    console.log('[cron] Scheduled tasks registered (weekly digest Mon 9AM, re-engagement daily 12PM)');
+  } catch (err) {
+    // node-cron is optional — if not installed, scheduled tasks won't run
+    // but HTTP-triggered cron endpoints still work
+    console.warn('[cron] node-cron not available — scheduled tasks disabled. Install with: npm install node-cron');
+  }
 
   // Graceful shutdown
   const shutdown = (signal) => {

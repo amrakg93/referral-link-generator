@@ -2,6 +2,7 @@ const express = require('express');
 const { getStripe } = require('../services/stripe');
 const { getDb } = require('../models/db');
 const config = require('../config');
+const { onConversion } = require('../services/notifications');
 
 const router = express.Router();
 
@@ -69,6 +70,16 @@ async function handleCheckoutCompleted(session) {
       .run(config.REWARD_AMOUNT, link.referrer_id);
 
     console.log(`Conversion confirmed: link ${link.id}, referrer credited ${config.REWARD_AMOUNT} cents`);
+
+    // Send email notification to the referrer
+    try {
+      const referrer = db.prepare('SELECT email FROM referrers WHERE id = ?').get(link.referrer_id);
+      if (referrer && referrer.email) {
+        onConversion(referrer.email, config.REWARD_AMOUNT, redemption.referred_email);
+      }
+    } catch (notifyErr) {
+      console.error('Failed to send conversion notification email:', notifyErr.message);
+    }
   }
 }
 
