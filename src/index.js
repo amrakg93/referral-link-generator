@@ -20,8 +20,9 @@ app.use(helmet({
       'script-src-attr': ["'unsafe-inline'"],
     },
   },
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
 }));
-app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
+app.use(cors({ origin: process.env.CORS_ORIGIN || 'https://reflinkgen.com' }));
 
 // Webhook route must come before express.json() — Stripe needs the raw body
 // to verify the signature. The route itself applies express.raw() internally.

@@ -5,6 +5,103 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Stripe-native referral engine + G2 review collector. $0/mo Starter (up to $500/mo referral revenue). $29/mo Pro. Embed in 2 lines.">
   <title>Referral Link Generator — Stripe-native referrals for indie hackers</title>
+  <link rel="canonical" href="https://reflinkgen.com/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://reflinkgen.com/">
+  <meta property="og:title" content="Referral Link Generator — Stripe-native referrals for indie hackers">
+  <meta property="og:description" content="Stripe-native referral engine + G2 review collector. $0/mo Starter (up to $500/mo referral revenue). $29/mo Pro. Embed in 2 lines.">
+  <meta property="og:image" content="https://reflinkgen.com/og-image.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Referral Link Generator — Stripe-native referrals for indie hackers">
+  <meta name="twitter:description" content="Stripe-native referral engine + G2 review collector. $0/mo Starter, $29/mo Pro. Embed in 2 lines.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Referral Link Generator",
+    "url": "https://reflinkgen.com",
+    "description": "Stripe-native referral engine + G2 review collector for indie hackers. Embed in 2 lines of HTML.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "All",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Starter",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Up to $500/mo referral revenue + 10 reviews"
+      },
+      {
+        "@type": "Offer",
+        "name": "Pro",
+        "price": "29",
+        "priceCurrency": "USD",
+        "description": "Unlimited referral revenue and reviews"
+      }
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Referral Link Generator"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Referral Link Generator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Referral Link Generator is a Stripe-native referral engine that lets you add a referral program to your SaaS in 2 lines of HTML. It also collects G2/Capterra reviews automatically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does it cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Starter is free up to $500/mo referral revenue. Pro is $29/mo for unlimited everything. No percentage of your revenue."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Stripe integration work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The service uses your Stripe account to create coupons and promo codes automatically. A webhook listens for checkout.session.completed and credits the referrer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I self-host?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The project is MIT licensed and ships with a Docker image. You can deploy to Railway, Render, Fly.io, or your own VPS."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does it take to set up?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "About 2 minutes. Drop the embed script, initialize with your user's email, and the widget renders instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you take a percentage of my referral revenue?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. We charge flat monthly pricing. No revenue share, no seat fees, no percentage of anything."
+        }
+      }
+    ]
+  }
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -480,6 +577,7 @@
     });
   }
 </script>
+<script defer data-domain="reflinkgen.com" src="https://plausible.io/js/script.js"></script>
 </body>
 </html>
 
