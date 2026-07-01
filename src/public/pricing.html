@@ -1,214 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Flat pricing. $0/mo Starter (up to $500/mo referral revenue + 10 reviews). $29/mo Pro (no limits). No seat fees.">
-  <title>Pricing — Referral Link Generator</title>
-  <link rel="canonical" href="https://reflinkgen.com/pricing">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://reflinkgen.com/pricing">
-  <meta property="og:title" content="Pricing — Referral Link Generator">
-  <meta property="og:description" content="Flat pricing. $0/mo Starter (up to $500/mo referral revenue + 10 reviews). $29/mo Pro (no limits). No seat fees.">
-  <meta property="og:image" content="https://reflinkgen.com/og-image.svg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Pricing — Referral Link Generator">
-  <meta name="twitter:description" content="Flat pricing. $0/mo Starter, $29/mo Pro. No revenue share, no seat fees.">
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --color-bg: #ffffff;
-      --color-text: #171717;
-      --color-accent: #533afd;
-      --color-accent-hover: #4434d4;
-      --color-heading: #061b31;
-      --color-body: #64748d;
-      --color-label: #273951;
-      --color-border: #e5edf5;
-      --color-border-accent: #b9b9f9;
-      --color-brand-dark: #1c1e54;
-      --color-ruby: #ea2261;
-      --color-magenta: #f96bee;
-      --color-success: #15be53;
-      --color-success-text: #108c3d;
-      --shadow-blue: rgba(50,50,93,0.25);
-      --shadow-black: rgba(0,0,0,0.1);
-      --shadow-ambient: rgba(23,23,23,0.08);
-      --shadow-soft: rgba(23,23,23,0.06);
-      --radius-sm: 4px;
-      --radius-md: 6px;
-      --radius-lg: 8px;
-      --container-max: 1080px;
-      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
-      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
-      --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-    }
-
-    body {
-      font-family: ''''Source Sans 3'''', system-ui, -apple-system, ''''Segoe UI'''', Roboto, sans-serif;
-      font-feature-settings: "ss01";
-      font-weight: 300;
-      color: var(--color-heading);
-      background: var(--color-bg);
-      line-height: 1.4;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    a { color: var(--color-accent); text-decoration: none; font-weight: 400; }
-    a:hover { color: var(--color-accent-hover); text-decoration: underline; }
-    code { font-family: ''''Source Code Pro'''', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.875em; background: #f5f5f5; padding: 2px 6px; border-radius: var(--radius-sm); }
-    pre { font-family: ''''Source Code Pro'''', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; line-height: 2; background: #0d253d; color: #e5edf5; padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto; }
-
-    .container { width: 100%; max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-4); }
-
-    /* Navigation */
-    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-border); }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .nav-logo { font-size: 20px; font-weight: 400; color: var(--color-heading); letter-spacing: -0.2px; }
-    .nav-links { display: none; gap: var(--space-6); }
-    .nav-links a { font-size: 14px; font-weight: 400; color: var(--color-heading); }
-    .nav-cta { display: none; }
-
-    @media (min-width: 640px) {
-      .nav-links, .nav-cta { display: flex; align-items: center; }
-    }
-
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); padding: 8px 16px; font-size: 16px; font-weight: 400; font-family: inherit; font-feature-settings: "ss01"; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; white-space: nowrap; }
-    .btn-primary { background: var(--color-accent); color: #fff; }
-    .btn-primary:hover { background: var(--color-accent-hover); color: #fff; text-decoration: none; }
-    .btn-ghost { background: transparent; color: var(--color-accent); border: 1px solid var(--color-border-accent); }
-    .btn-ghost:hover { background: rgba(83,58,253,0.05); color: var(--color-accent-hover); text-decoration: none; border-color: var(--color-accent-hover); }
-    .btn-large { padding: 12px 24px; font-size: 18px; }
-    .btn-block { width: 100%; }
-
-    /* Hero */
-    .hero { padding: var(--space-20) 0 var(--space-12); text-align: center; }
-    .hero-badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: 4px 10px; background: rgba(83,58,253,0.08); border: 1px solid var(--color-border-accent); border-radius: var(--radius-sm); font-size: 13px; font-weight: 400; color: var(--color-accent); margin-bottom: var(--space-6); }
-    .hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 300; line-height: 1.15; letter-spacing: -0.96px; color: var(--color-heading); margin-bottom: var(--space-6); }
-    .hero p { font-size: clamp(18px, 2.5vw, 22px); font-weight: 300; line-height: 1.4; color: var(--color-body); max-width: 640px; margin: 0 auto; }
-
-    /* Section */
-    .section { padding: var(--space-16) 0; }
-    .heading { font-size: clamp(28px, 4vw, 32px); font-weight: 300; line-height: 1.1; letter-spacing: -0.64px; color: var(--color-heading); margin-bottom: var(--space-4); text-align: center; }
-    .subheading { font-size: 18px; font-weight: 300; line-height: 1.4; color: var(--color-body); max-width: 640px; margin: 0 auto var(--space-12); text-align: center; }
-
-    /* Pricing cards */
-    .pricing-grid { display: grid; gap: var(--space-6); align-items: start; }
-    @media (min-width: 1024px) { .pricing-grid { grid-template-columns: 1fr 1fr; } }
-
-    .pricing-card { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-8); position: relative; }
-    .pricing-card.featured { border-color: var(--color-accent); box-shadow: var(--shadow-blue) 0px 30px 45px -30px, var(--shadow-black) 0px 18px 36px -18px; }
-    .pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-accent); color: #fff; font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 999px; white-space: nowrap; }
-
-    .plan-name { font-size: 22px; font-weight: 300; line-height: 1.1; letter-spacing: -0.22px; color: var(--color-heading); margin-bottom: var(--space-2); text-align: center; }
-    .plan-price { text-align: center; margin-bottom: var(--space-6); }
-    .price-amount { font-size: 56px; font-weight: 300; line-height: 1.03; letter-spacing: -1.4px; color: var(--color-heading); font-family: inherit; font-feature-settings: "ss01"; }
-    .price-period { font-size: 16px; font-weight: 300; color: var(--color-body); margin-left: 4px; }
-    .price-note { font-size: 14px; font-weight: 300; color: var(--color-body); text-align: center; margin-top: var(--space-2); }
-
-    .plan-features { list-style: none; margin-bottom: var(--space-8); }
-    .plan-features li { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3) 0; font-size: 16px; font-weight: 300; color: var(--color-body); border-bottom: 1px solid var(--color-border); }
-    .plan-features li:last-child { border-bottom: none; }
-    .plan-features svg { flex-shrink: 0; width: 20px; height: 20px; color: var(--color-success); margin-top: 2px; }
-
-    .plan-cta { width: 100%; }
-    .plan-cta .btn { width: 100%; }
-
-    /* Calculator */
-    .calculator { background: #f8f9fc; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-8); }
-    .calculator h3 { font-size: 22px; font-weight: 300; line-height: 1.1; letter-spacing: -0.22px; color: var(--color-heading); margin-bottom: var(--space-6); text-align: center; }
-    .calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-6); margin-bottom: var(--space-5); align-items: end; }
-    @media (max-width: 639px) { .calc-row { grid-template-columns: 1fr; } }
-    .calc-label { font-size: 14px; font-weight: 400; color: var(--color-label); margin-bottom: var(--space-1); }
-    .calc-input { width: 100%; padding: 10px 12px; font-size: 16px; font-family: inherit; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: #fff; color: var(--color-heading); }
-    .calc-input:focus { outline: none; border-color: var(--color-accent); }
-    .calc-result { background: #fff; border: 1px solid var(--color-border-accent); border-radius: var(--radius-md); padding: var(--space-6); text-align: center; }
-    .calc-result-value { font-size: 48px; font-weight: 300; line-height: 1.1; letter-spacing: -0.96px; color: var(--color-accent); font-family: inherit; font-feature-settings: "ss01"; }
-    .calc-result-label { font-size: 14px; font-weight: 300; color: var(--color-body); margin-top: var(--space-2); }
-    .calc-breakdown { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); margin-top: var(--space-6); font-size: 13px; color: var(--color-body); }
-    .calc-breakdown-item { text-align: center; padding: var(--space-3); background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-sm); }
-    .calc-breakdown-value { font-size: 18px; font-weight: 400; color: var(--color-heading); }
-    .calc-breakdown-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-body); margin-top: 2px; }
-
-    /* FAQ */
-    .faq { margin-top: var(--space-12); }
-    .faq-item { border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-4); overflow: hidden; }
-    .faq-question { width: 100%; padding: var(--space-5) var(--space-6); background: #fff; border: none; font-size: 18px; font-weight: 300; font-family: inherit; font-feature-settings: "ss01"; color: var(--color-heading); text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-    .faq-question:hover { background: #f8f9fc; }
-    .faq-icon { width: 24px; height: 24px; color: var(--color-body); flex-shrink: 0; transition: transform 0.2s; }
-    details[open] .faq-icon { transform: rotate(180deg); }
-    .faq-answer { padding: 0 var(--space-6) var(--space-5); color: var(--color-body); line-height: 1.6; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Comparison note */
-    .compare-note { background: rgba(83,58,253,0.05); border: 1px solid var(--color-border-accent); border-radius: var(--radius-lg); padding: var(--space-6); margin-top: var(--space-10); }
-    .compare-note h4 { font-size: 16px; font-weight: 400; color: var(--color-accent); margin-bottom: var(--space-3); }
-    .compare-note p { font-size: 15px; font-weight: 300; color: var(--color-body); line-height: 1.6; }
-    .compare-note a { font-weight: 400; }
-
-    /* Footer CTA */
-    .footer-cta { text-align: center; padding: var(--space-16) 0; background: var(--color-brand-dark); color: #fff; }
-    .footer-cta h2 { font-size: clamp(28px, 4vw, 32px); font-weight: 300; line-height: 1.1; letter-spacing: -0.64px; margin-bottom: var(--space-4); }
-    .footer-cta p { font-size: 18px; font-weight: 300; line-height: 1.4; color: rgba(255,255,255,0.7); max-width: 560px; margin: 0 auto var(--space-8); }
-    .footer-cta .btn-primary { background: #fff; color: var(--color-accent); }
-    .footer-cta .btn-primary:hover { background: #f0f0f0; color: var(--color-accent-hover); }
-
-    /* Footer */
-    .footer { background: #0d253d; color: #fff; padding: var(--space-12) 0 var(--space-6); }
-    .footer-grid { display: grid; gap: var(--space-8); margin-bottom: var(--space-8); }
-    @media (min-width: 640px) { .footer-grid { grid-template-columns: 2fr repeat(3, 1fr); } }
-    .footer-brand { max-width: 280px; }
-    .footer-logo { font-size: 20px; font-weight: 400; margin-bottom: var(--space-4); }
-    .footer-tagline { font-size: 14px; font-weight: 300; line-height: 1.5; color: rgba(255,255,255,0.6); }
-    .footer-col h4 { font-size: 12px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.04em; color: rgba(255,255,255,0.4); margin-bottom: var(--space-4); }
-    .footer-col a { display: block; font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.8); line-height: 2; }
-    .footer-col a:hover { color: #fff; text-decoration: none; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: var(--space-6); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-4); font-size: 13px; color: rgba(255,255,255,0.5); }
-
-    /* Animations */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .animate-in { animation: fadeUp 0.6s ease-out forwards; opacity: 0; }
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-
-    /* Focus states */
-    :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-
-    /* Responsive */
-    @media (max-width: 639px) {
-      .hero { padding: var(--space-12) 0 var(--space-8); }
-      .section { padding: var(--space-10) 0; }
-      .pricing-card { padding: var(--space-6); }
-      .calculator { padding: var(--space-6); }
-      .footer-bottom { flex-direction: column; text-align: center; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Flat pricing. $0/mo Starter (up to $500/mo referral revenue + 10 reviews). $29/mo Pro (no limits). No seat fees.">
+<title>Pricing — Referral Link Generator</title>
+<link rel="canonical" href="https://reflinkgen.com/pricing">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://reflinkgen.com/pricing">
+<meta property="og:title" content="Pricing — Referral Link Generator">
+<meta property="og:description" content="Flat pricing. $0/mo Starter (up to $500/mo referral revenue + 10 reviews). $29/mo Pro (no limits). No seat fees.">
+<meta property="og:image" content="https://reflinkgen.com/og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pricing — Referral Link Generator">
+<meta name="twitter:description" content="Flat pricing. $0/mo Starter, $29/mo Pro. No revenue share, no seat fees.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#171717;--on-primary:#fff;--ink:#171717;--body:#4d4d4d;--mute:#888;--hairline:#ebebeb;--link:#0070f3;--canvas:#fff;--canvas-soft:#fafafa;--canvas-soft-2:#f5f5f5;--radius-sm:6px;--radius-md:8px;--radius-lg:12px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,sans-serif;font-weight:400;color:var(--ink);background:var(--canvas);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--link);font-weight:500;text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:Geist Mono,ui-monospace,monospace;font-size:.875em;background:var(--canvas-soft-2);padding:2px 6px;border-radius:4px}
+.container{width:100%;max-width:1080px;margin:0 auto;padding:0 16px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.90);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--hairline)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-size:20px;font-weight:500;color:var(--ink)}
+.nav-links{display:flex;gap:24px}
+.nav-links a{font-size:14px;font-weight:400;color:var(--mute)}
+.nav-cta{display:flex;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 20px;font-size:14px;font-weight:500;font-family:inherit;border-radius:var(--radius-sm);border:none;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s,border-color .15s;text-decoration:none}
+.btn-primary{background:var(--primary);color:var(--on-primary)}
+.btn-primary:hover{background:var(--ink);color:#fff;text-decoration:none}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--hairline)}
+.btn-ghost:hover{background:var(--canvas-soft);border-color:var(--mute);text-decoration:none}
+.btn-block{width:100%}
+.hero{padding:96px 0 64px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;background:var(--canvas-soft);border:1px solid var(--hairline);border-radius:100px;font-size:13px;font-weight:400;color:var(--mute);margin-bottom:24px}
+.hero h1{font-size:48px;font-weight:600;line-height:1.1;letter-spacing:-1.44px;color:var(--ink);margin-bottom:16px}
+.hero p{font-size:18px;font-weight:400;line-height:1.6;color:var(--body);max-width:640px;margin:0 auto}
+.section{padding:96px 0}
+.section-soft{background:var(--canvas-soft)}
+.heading{font-size:32px;font-weight:600;line-height:1.15;letter-spacing:-1.28px;color:var(--ink);margin-bottom:16px;text-align:center}
+.subheading{font-size:18px;font-weight:400;line-height:1.6;color:var(--body);max-width:640px;margin:0 auto 48px;text-align:center}
+.pricing-grid{display:grid;gap:24px;max-width:720px;margin:0 auto}
+@media(min-width:768px){.pricing-grid{grid-template-columns:1fr 1fr}}
+.pricing-card{background:#fff;border:1px solid var(--hairline);border-radius:var(--radius-lg);padding:40px 32px;position:relative}
+.pricing-card.featured{border-color:var(--ink);border-width:2px}
+.pricing-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;font-size:11px;font-weight:500;padding:4px 12px;border-radius:100px;white-space:nowrap}
+.price{font-size:48px;font-weight:600;color:var(--ink);letter-spacing:-2.4px;margin:24px 0 8px}
+.price span{font-size:16px;font-weight:400;color:var(--mute);letter-spacing:0}
+.price-period{font-size:14px;color:var(--mute);margin-bottom:32px}
+.pricing-card ul{list-style:none;padding:0;margin:0 0 32px}
+.pricing-card li{padding:10px 0;font-size:14px;color:var(--body);border-top:1px solid var(--hairline)}
+.pricing-card .btn{width:100%}
+.compare{overflow-x:auto;margin-top:48px}
+.compare table{width:100%;border-collapse:collapse;font-size:14px}
+.compare th,.compare td{padding:16px;text-align:left;border-bottom:1px solid var(--hairline)}
+.compare th{font-weight:500;color:var(--mute);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.compare td{color:var(--body)}
+.compare .you{font-weight:500;color:var(--ink)}
+.badge{display:inline-flex;align-items:center;padding:2px 10px;font-size:11px;font-weight:500;background:var(--canvas-soft);color:var(--mute);border-radius:100px;border:1px solid var(--hairline)}
+.badge-primary{background:rgba(0,112,243,.08);color:var(--link);border-color:rgba(0,112,243,.2)}
+.check{color:#15be53;font-weight:600}
+.cross{color:#ccc}
+.faq{max-width:640px;margin:48px auto 0}
+.faq-item{padding:20px 0;border-top:1px solid var(--hairline)}
+.faq-q{font-weight:500;color:var(--ink);margin-bottom:4px;font-size:16px}
+.faq-a{font-size:14px;color:var(--body);line-height:1.6}
+.footer{background:var(--ink);color:rgba(255,255,255,.7);padding:96px 0 32px;margin-top:0}
+.footer-grid{display:grid;gap:40px;margin-bottom:64px}
+@media(min-width:640px){.footer-grid{grid-template-columns:2fr repeat(3,1fr)}}
+.footer-logo{font-size:20px;font-weight:500;color:#fff;margin-bottom:16px}
+.footer-tagline{font-size:14px;line-height:1.6;color:rgba(255,255,255,.45)}
+.footer-col h4{font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;color:rgba(255,255,255,.35);margin-bottom:16px}
+.footer-col a{display:block;font-size:14px;font-weight:400;color:rgba(255,255,255,.7);line-height:2}
+.footer-col a:hover{color:#fff;text-decoration:none}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:13px;color:rgba(255,255,255,.35)}
+@media(max-width:639px){
+.hero h1{font-size:32px}
+.hero{padding:64px 0 48px}
+.section{padding:64px 0}
+.nav-links,.nav-cta{display:none}
+.pricing-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
-
-<nav class="nav" role="navigation" aria-label="Main navigation">
+<nav class="nav">
   <div class="container nav-inner">
-    <a href="/" class="nav-logo" aria-label="Referral Link Generator home">Referral Link Generator</a>
+    <a href="/" class="nav-logo">Referral Link Generator</a>
     <div class="nav-links">
       <a href="/#features">Features</a>
-      <a href="/#how-it-works">How it works</a>
-      <a href="/pricing" aria-current="page">Pricing</a>
-      <a href="/dashboard">Reviews</a>
+      <a href="/pricing">Pricing</a>
       <a href="https://github.com/amrakg93/referral-link-generator" target="_blank" rel="noopener">Docs</a>
+      <a href="/dashboard">Reviews</a>
     </div>
     <div class="nav-cta">
-      <a href="/" class="btn btn-ghost">Home</a>
-      <a href="/dashboard" class="btn btn-ghost">Reviews demo</a>
+      <a href="/pricing" class="btn btn-ghost">Pricing</a>
+      <a href="/dashboard" class="btn btn-ghost">Reviews</a>
       <a href="/dashboard" class="btn btn-primary">Get started</a>
     </div>
   </div>
@@ -216,293 +107,121 @@
 
 <header class="hero">
   <div class="container">
-    <span class="hero-badge animate-in">Simple, flat pricing · No surprises</span>
-    <h1 class="animate-in delay-1">Flat pricing. No surprises.</h1>
-    <p class="animate-in delay-2">$0/mo Starter ($500/mo referral cap). $29/mo Pro (no limits). No seat fees, no percentage of your revenue.</p>
+    <span class="hero-badge">Flat pricing · No revenue share</span>
+    <h1>Simple, transparent pricing</h1>
+    <p>Start free, upgrade when you grow. No hidden fees, no surprise charges.</p>
   </div>
 </header>
 
-<section class="section" aria-labelledby="pricing-heading">
+<section class="section">
   <div class="container">
-    <header>
-      <h2 id="pricing-heading" class="heading animate-in">Two plans. Simple pricing.</h2>
-      <p class="subheading animate-in delay-1">Everything included. No feature gating. You only pay when your referral program actually works.</p>
-    </header>
-
     <div class="pricing-grid">
-      <!-- Free tier card -->
-      <article class="pricing-card animate-in delay-1">
-        <span class="pricing-badge">FREE</span>
-        <h3 class="plan-name">Starter</h3>
-        <div class="plan-price">
-          <span class="price-amount">$0</span>
-          <span class="price-period">/month</span>
-        </div>
-        <p class="price-note">Up to $500/mo referral revenue + 10 reviews/mo</p>
-        <ul class="plan-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Referral links (up to $500/mo revenue)</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Embeddable widget (2 lines)</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Stripe coupons & promo codes</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Webhook conversion tracking</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Admin dashboard</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Self-hosted (Docker)</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Your data, your domain</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> No credit card required</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Collect G2 reviews (10/mo)</li>
+      <div class="pricing-card">
+        <h3 style="font-size:20px;font-weight:500;letter-spacing:-.4px">Starter</h3>
+        <div class="price">$0 <span>/mo</span></div>
+        <p class="price-period">For testing and early traction</p>
+        <ul>
+          <li>Up to $500/mo referral revenue tracked</li>
+          <li>10 review requests per month</li>
+          <li>All core features included</li>
+          <li>Community support</li>
         </ul>
-        <div class="plan-cta">
-          <a href="/dashboard" class="btn btn-primary btn-block">Start Free</a>
-        </div>
-      </article>
-
-      <!-- Pro tier card -->
-      <article class="pricing-card featured animate-in delay-2">
-        <span class="pricing-badge">GROWTH</span>
-        <h3 class="plan-name">Pro</h3>
-        <div class="plan-price">
-          <span class="price-amount">$29</span>
-          <span class="price-period">/month</span>
-        </div>
-        <p class="price-note">or $299/year (save $49 vs monthly). No revenue cap, unlimited reviews.</p>
-        <ul class="plan-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Everything in Starter</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> No revenue cap</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Priority email support</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Custom reward amounts</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Multi-product support</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Advanced analytics</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> White-label embed option</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> SLA available</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Unlimited review requests</li>
+        <a href="/dashboard" class="btn btn-ghost">Get started free</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most popular</div>
+        <h3 style="font-size:20px;font-weight:500;letter-spacing:-.4px">Pro</h3>
+        <div class="price">$29 <span>/mo</span></div>
+        <p class="price-period">Or $299/year — save 15%</p>
+        <ul>
+          <li>Unlimited referral revenue tracking</li>
+          <li>Unlimited review requests</li>
+          <li>Priority support</li>
+          <li>Early access to new features</li>
         </ul>
-        <div class="plan-cta">
-          <a href="/api/subscriptions/checkout/pro-monthly" class="btn btn-primary btn-block">Get Pro — $29/mo</a>
-          <a href="/api/subscriptions/checkout/pro-annual" style="display:block;text-align:center;margin-top:8px;font-size:13px;color:var(--color-body);">or $299/year (save $49)</a>
-        </div>
-      </article>
-    </div>
-
-    <!-- Revenue calculator -->
-    <div class="calculator animate-in delay-3" role="region" aria-label="Revenue calculator">
-      <h3>Calculate your cost</h3>
-      <div class="calc-row">
-        <div>
-          <label class="calc-label" for="monthly-referrals">New referred customers/month</label>
-          <input type="number" id="monthly-referrals" class="calc-input" value="10" min="0" step="1" aria-label="Monthly referred customers">
-        </div>
-        <div>
-          <label class="calc-label" for="avg-revenue">Average revenue per customer ($)</label>
-          <input type="number" id="avg-revenue" class="calc-input" value="49" min="0" step="1" aria-label="Average revenue per customer">
-        </div>
+        <a href="/dashboard" class="btn btn-primary">Subscribe to Pro</a>
       </div>
-      <div class="calc-row">
-        <div>
-          <label class="calc-label" for="referral-rate">Referral conversion rate (%)</label>
-          <input type="number" id="referral-rate" class="calc-input" value="15" min="0" max="100" step="1" aria-label="Referral conversion rate">
-        </div>
-        <div>
-          <label class="calc-label" for="months">Projection period (months)</label>
-          <input type="number" id="months" class="calc-input" value="12" min="1" max="36" step="1" aria-label="Projection period in months">
-        </div>
-      </div>
-      <div class="calc-result">
-        <div class="calc-result-value" id="total-cost">$0</div>
-        <div class="calc-result-label">Platform fee over <span id="period-text">12</span> months</div>
-        <div class="calc-breakdown">
-          <div class="calc-breakdown-item">
-            <div class="calc-breakdown-value" id="total-referral-rev">$0</div>
-            <div class="calc-breakdown-label">Referral revenue</div>
-          </div>
-          <div class="calc-breakdown-item">
-            <div class="calc-breakdown-value" id="your-revenue">$0</div>
-            <div class="calc-breakdown-label">Your revenue (100%)</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAQ -->
-    <div class="faq animate-in delay-3" aria-labelledby="faq-heading">
-      <h2 id="faq-heading" class="heading" style="margin-bottom: var(--space-8);">Common questions</h2>
-
-      <details class="faq-item">
-        <summary class="faq-question">
-          What does Pro include?
-          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </summary>
-        <div class="faq-answer">
-          <p>Pro ($29/mo or $299/yr) unlocks everything: unlimited referral links, unlimited G2/Capterra reviews, multi-product support, custom reward amounts, priority email support, white-label embed, and advanced analytics. No caps, no hidden fees.</p>
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-question">
-          Do you charge a percentage of my revenue?
-          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </summary>
-        <div class="faq-answer">
-          <p>No. We charge a flat fee — not a percentage of your revenue. Your direct/organic customers are 100% yours. You pay $0 on Starter, $29/mo on Pro. Period.</p>
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-question">
-          Is there a free trial for Pro?
-          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </summary>
-        <div class="faq-answer">
-          <p>Starter is free forever with no credit card. Try Pro for 14 days free — upgrade from the dashboard anytime. Cancel anytime, no questions asked.</p>
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-question">
-          Can I self-host and avoid the fee entirely?
-          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </summary>
-        <div class="faq-answer">
-          <p>The code is open source (MIT) — you can self-host the open-source version forever without any platform fee. The fee applies if you use our hosted service or want the Pro features (priority support, white-label, SLA, advanced analytics). Either way, you own your data.</p>
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-question">
-          How do referrers get paid?
-          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </summary>
-        <div class="faq-answer">
-          <p>You control the reward amount (default $10 per conversion) in <code>REWARD_AMOUNT</code>. The system tracks each referrer''''s balance in the <code>reward_balance</code> column. Payouts are manual — you decide when/how to pay (account credit, PayPal, bank transfer, gift cards). No automatic money movement by our system.</p>
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary class="faq-question">
-          What if I want to cancel?
-          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </summary>
-        <div class="faq-answer">
-          <p>Cancel anytime. If self-hosted, just stop the container — your data stays in your SQLite file. If hosted, export your data (CSV/SQLite) and we''''ll delete your account. No contracts, no lock-in, no "enterprise sales call" required to leave.</p>
-        </div>
-      </details>
-    </div>
-
-    <!-- Comparison note -->
-    <div class="compare-note animate-in delay-3">
-      <h4>How we compare</h4>
-      <p>At $500/month referral revenue: <strong>Referral Factory = $149/mo</strong>, <strong>Cello = $200+/mo</strong>, <strong>Friendbuy = $500+/mo</strong>. <strong>Referral Link Generator = $29/mo</strong>. At $5,000/month: <strong>theirs = $149–$500+, ours = $29</strong>. Flat and predictable — always.</p>
     </div>
   </div>
 </section>
 
-<section class="footer-cta" aria-labelledby="footer-cta-heading">
+<section class="section section-soft">
   <div class="container">
-    <h2 id="footer-cta-heading">Start your referral program today</h2>
-    <p>Free up to $500/mo referral revenue. Upgrade to Pro when you need more.</p>
-    <a href="/dashboard" class="btn btn-primary btn-large">Get Started</a>
+    <h2 class="heading">vs. the alternatives</h2>
+    <p class="subheading">Why founders switch from Referral Factory, Cello, Prefinery, and the rest.</p>
+    <div class="compare">
+      <table>
+        <thead><tr>
+          <th></th>
+          <th class="you">Referral Link Generator</th>
+          <th>Referral Factory</th>
+          <th>Cello</th>
+          <th>Friendbuy</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Monthly cost</td><td class="you">$0</td><td>$149</td><td>$200+</td><td>$500+</td></tr>
+          <tr><td>Stripe integration</td><td class="you"><span class="badge badge-primary">Native</span></td><td>Separate dashboard</td><td>Custom webhooks</td><td>Custom webhooks</td></tr>
+          <tr><td>Setup time</td><td class="you">2 minutes</td><td>Days</td><td>Days</td><td>Weeks</td></tr>
+          <tr><td>Self-hosted</td><td class="you"><span class="badge badge-primary">Yes</span></td><td>No</td><td>No</td><td>No</td></tr>
+          <tr><td>Data ownership</td><td class="you"><span class="badge badge-primary">Yours</span></td><td>Theirs</td><td>Theirs</td><td>Theirs</td></tr>
+          <tr><td>Free tier</td><td class="you">Up to $500/mo</td><td>14-day trial</td><td>14-day trial</td><td>Demo only</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
-<footer class="footer" role="contentinfo">
+<section class="section">
+  <div class="container">
+    <h2 class="heading">FAQs</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">Is there a free trial?</div>
+        <div class="faq-a">Starter is free forever up to $500/mo referral revenue. No time limit, no credit card required.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I cancel anytime?</div>
+        <div class="faq-a">Yes. Cancel your subscription at any time. You keep access until the end of the billing period.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you take a percentage of my revenue?</div>
+        <div class="faq-a">No. Flat monthly pricing. No revenue share, no seat fees, no percentage of anything.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
+      <div>
         <div class="footer-logo">Referral Link Generator</div>
-        <p class="footer-tagline">The only Stripe-native referral engine built for pre-revenue founders. Ship referrals, not dashboards.</p>
+        <p class="footer-tagline">Stripe-native referral engine + G2 review collector.</p>
       </div>
-      <nav class="footer-col">
+      <div class="footer-col">
         <h4>Product</h4>
         <a href="/#features">Features</a>
         <a href="/pricing">Pricing</a>
-        <a href="https://github.com/amrakg93/referral-link-generator" target="_blank" rel="noopener">Documentation</a>
         <a href="https://github.com/amrakg93/referral-link-generator" target="_blank" rel="noopener">GitHub</a>
-      </nav>
-      <nav class="footer-col">
+      </div>
+      <div class="footer-col">
         <h4>Resources</h4>
-        <a href="https://github.com/amrakg93/referral-link-generator/blob/main/ABOUT.md" target="_blank" rel="noopener">Blog</a>
-        <a href="https://github.com/amrakg93/referral-link-generator/blob/main/ABOUT.md" target="_blank" rel="noopener">Integration guide</a>
-        <a href="https://github.com/amrakg93/referral-link-generator/issues" target="_blank" rel="noopener">API reference</a>
-        <a href="https://github.com/amrakg93/referral-link-generator/releases" target="_blank" rel="noopener">Changelog</a>
-        <a href="/dashboard">Reviews demo</a>
-      </nav>
-      <nav class="footer-col">
-        <h4>Company</h4>
         <a href="/about">About</a>
-        <a href="mailto:hello@reflinkgen.com">Contact</a>
+        <a href="/dashboard">Reviews demo</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
         <a href="/privacy">Privacy</a>
         <a href="/terms">Terms</a>
-      </nav>
+      </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Referral Link Generator. Built for indie hackers.</p>
-      <p>Stripe is a registered trademark of Stripe, Inc.</p>
+      <p>&copy; 2026 Referral Link Generator</p>
+      <p>Built for indie hackers.</p>
     </div>
   </div>
 </footer>
 
-<script>
-  // Calculator logic
-  const refsInput = document.getElementById(''''monthly-referrals'''');
-  const revenueInput = document.getElementById(''''avg-revenue'''');
-  const rateInput = document.getElementById(''''referral-rate'''');
-  const monthsInput = document.getElementById(''''months'''');
-
-  const totalCostEl = document.getElementById(''''total-cost'''');
-  const periodTextEl = document.getElementById(''''period-text'''');
-  const totalRevEl = document.getElementById(''''total-referral-rev'''');
-  const yourRevEl = document.getElementById(''''your-revenue'''');
-
-  function fmt(n) {
-    return new Intl.NumberFormat(''''en-US'''', { style: ''''currency'''', currency: ''''USD'''', maximumFractionDigits: 0 }).format(n);
-  }
-
-  function recalc() {
-    const refs = parseFloat(refsInput.value) || 0;
-    const rev = parseFloat(revenueInput.value) || 0;
-    const rate = (parseFloat(rateInput.value) || 0) / 100;
-    const months = parseFloat(monthsInput.value) || 1;
-
-    const monthlyReferralRev = refs * rate * rev;
-    const totalReferralRev = monthlyReferralRev * months;
-    const platformFee = months * 29; // flat $29/mo
-
-    totalCostEl.textContent = fmt(platformFee);
-    periodTextEl.textContent = months;
-    totalRevEl.textContent = fmt(totalReferralRev);
-    yourRevEl.textContent = fmt(totalReferralRev);
-  }
-
-  [refsInput, revenueInput, rateInput, monthsInput].forEach(el => {
-    el.addEventListener(''''input'''', recalc);
-    el.addEventListener(''''change'''', recalc);
-  });
-
-  recalc();
-
-  // Scroll animations
-  const prefersReduced = window.matchMedia(''''(prefers-reduced-motion: reduce)'''').matches;
-  if (!prefersReduced) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animationPlayState = ''''running'''';
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: ''''0px 0px -50px 0px'''' });
-
-    document.querySelectorAll(''''.animate-in'''').forEach(el => {
-      el.style.animationPlayState = ''''paused'''';
-      observer.observe(el);
-    });
-  }
-</script>
 <script defer data-domain="reflinkgen.com" src="https://plausible.io/js/script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-

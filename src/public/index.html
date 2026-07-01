@@ -1,565 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Referral Dashboard</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #f5f5f5;
-      color: #111;
-      min-height: 100vh;
-    }
-
-    header {
-      background: #fff;
-      border-bottom: 1px solid #e5e5e5;
-      padding: 16px 32px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    header h1 { font-size: 18px; font-weight: 600; }
-    header span { font-size: 13px; color: #666; }
-
-    .container { max-width: 960px; margin: 0 auto; padding: 32px 16px; }
-
-    /* Product selector */
-    .setup {
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 8px;
-      padding: 24px;
-      margin-bottom: 24px;
-      display: flex;
-      gap: 12px;
-      align-items: flex-end;
-    }
-
-    .field { display: flex; flex-direction: column; gap: 6px; flex: 1; }
-    .field label { font-size: 12px; font-weight: 500; color: #555; text-transform: uppercase; letter-spacing: .04em; }
-    .field input {
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      padding: 9px 12px;
-      font-size: 14px;
-      outline: none;
-      transition: border-color .15s;
-    }
-    .field input:focus { border-color: #6366f1; }
-
-    button {
-      background: #6366f1;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 10px 18px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background .15s;
-      white-space: nowrap;
-    }
-    button:hover { background: #4f46e5; }
-    button.secondary {
-      background: #f0f0f0;
-      color: #333;
-    }
-    button.secondary:hover { background: #e0e0e0; }
-
-    /* Stat cards */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .stat {
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 8px;
-      padding: 20px;
-    }
-
-    .stat-label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px; }
-    .stat-value { font-size: 28px; font-weight: 700; color: #111; }
-    .stat-sub { font-size: 12px; color: #aaa; margin-top: 4px; }
-
-    /* Generate link panel */
-    .panel {
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 8px;
-      padding: 24px;
-      margin-bottom: 24px;
-    }
-    .panel h2 { font-size: 15px; font-weight: 600; margin-bottom: 16px; }
-
-    .row { display: flex; gap: 12px; align-items: flex-end; }
-
-    .link-result {
-      margin-top: 16px;
-      background: #f8f8ff;
-      border: 1px solid #e0e0ff;
-      border-radius: 6px;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .link-result code { flex: 1; font-size: 13px; color: #4f46e5; word-break: break-all; }
-    .link-result button { flex-shrink: 0; padding: 6px 14px; font-size: 13px; }
-
-    /* Links table */
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    th { text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: .04em; border-bottom: 1px solid #eee; }
-    td { padding: 12px; border-bottom: 1px solid #f0f0f0; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: #fafafa; }
-
-    .badge {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 500;
-      padding: 2px 8px;
-      border-radius: 999px;
-    }
-    .badge-green { background: #d1fae5; color: #065f46; }
-    .badge-grey  { background: #f0f0f0; color: #666; }
-
-    .empty { text-align: center; padding: 48px; color: #aaa; font-size: 14px; }
-
-    /* Tabs */
-    .tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 1px solid #e5e5e5; }
-    .tab {
-      padding: 10px 20px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #888;
-      cursor: pointer;
-      border: none;
-      background: none;
-      border-bottom: 2px solid transparent;
-      transition: color .15s, border-color .15s;
-    }
-    .tab:hover { color: #111; }
-    .tab.active { color: #6366f1; border-bottom-color: #6366f1; }
-
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-
-    #error { color: #dc2626; font-size: 13px; margin-top: 8px; display: none; }
-    #loading { display: none; color: #888; font-size: 13px; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Referral Dashboard — Referral Link Generator</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#171717;--on-primary:#fff;--ink:#171717;--body:#4d4d4d;--mute:#888;--hairline:#ebebeb;--canvas:#fff;--canvas-soft:#fafafa;--canvas-soft-2:#f5f5f5;--link:#0070f3;--radius-sm:6px;--radius-md:8px;--radius-lg:12px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,sans-serif;font-weight:400;color:var(--ink);background:var(--canvas-soft);line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:var(--link);font-weight:500;text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:Geist Mono,ui-monospace,monospace;font-size:.875em}
+header{background:#fff;border-bottom:1px solid var(--hairline);padding:16px 32px;display:flex;align-items:center;gap:12px}
+header h1{font-size:18px;font-weight:600}
+header span{font-size:13px;color:var(--mute)}
+.container{max-width:960px;margin:0 auto;padding:32px 16px}
+.setup{background:#fff;border:1px solid var(--hairline);border-radius:var(--radius-md);padding:24px;margin-bottom:24px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:6px;flex:1;min-width:180px}
+.field label{font-size:12px;font-weight:500;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.field input{border:1px solid var(--hairline);border-radius:var(--radius-sm);padding:9px 12px;font-size:14px;outline:none;transition:border-color .15s;font-family:inherit}
+.field input:focus{border-color:var(--link)}
+button{background:var(--primary);color:var(--on-primary);border:none;border-radius:var(--radius-sm);padding:10px 18px;font-size:14px;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap;font-family:inherit}
+button:hover{background:var(--ink)}
+button.secondary{background:var(--canvas-soft-2);color:var(--ink)}
+button.secondary:hover{background:var(--hairline)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+@media(max-width:639px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:#fff;border:1px solid var(--hairline);border-radius:var(--radius-md);padding:20px}
+.stat-label{font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.stat-value{font-size:28px;font-weight:600;color:var(--ink);letter-spacing:-.56px}
+.stat-sub{font-size:12px;color:var(--mute);margin-top:4px}
+.panel{background:#fff;border:1px solid var(--hairline);border-radius:var(--radius-md);padding:24px;margin-bottom:24px}
+.panel h2{font-size:16px;font-weight:600;margin-bottom:16px}
+.panel .field-group{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--hairline)}
+th{font-weight:500;color:var(--mute);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+td{color:var(--body)}
+a{color:var(--link)}
+.copy-btn{background:none;border:1px solid var(--hairline);border-radius:var(--radius-sm);padding:4px 10px;font-size:12px;cursor:pointer;font-family:inherit;color:var(--body)}
+.copy-btn:hover{background:var(--canvas-soft);border-color:var(--mute)}
+</style>
 </head>
 <body>
-
 <header>
-  <a href="/" style="text-decoration:none; color:inherit; display:flex; align-items:center; gap:12px;">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-    </svg>
-    <h1>Referral Dashboard</h1>
-  </a>
-  <span id="product-label"></span>
+<h1>Referral Dashboard</h1>
+<span>reflinkgen.com</span>
 </header>
+<div class="container" id="app">
+<div class="setup">
+<div class="field">
+<label for="productId">Product ID</label>
+<input id="productId" type="text" placeholder="my-saas-app" value="demo-app">
+</div>
+<button onclick="refreshDashboard()">Load dashboard</button>
+<button class="secondary" onclick="generateLink()">Generate link</button>
+</div>
+<div class="stats">
+<div class="stat"><div class="stat-label">Total links</div><div class="stat-value" id="stat-links">—</div><div class="stat-sub">All time</div></div>
+<div class="stat"><div class="stat-label">Clicks</div><div class="stat-value" id="stat-clicks">—</div><div class="stat-sub">All time</div></div>
+<div class="stat"><div class="stat-label">Conversions</div><div class="stat-value" id="stat-conversions">—</div><div class="stat-sub">All time</div></div>
+<div class="stat"><div class="stat-label">Referral revenue</div><div class="stat-value" id="stat-revenue">—</div><div class="stat-sub">This month</div></div>
+</div>
+<div class="panel">
+<h2>Generate a referral link</h2>
+<div class="field-group">
+<div class="field">
+<label for="ref-email">Referrer email</label>
+<input id="ref-email" type="email" placeholder="user@example.com">
+</div>
+<button onclick="generateLink()">Generate</button>
+</div>
+<div id="link-result" style="margin-top:16px;display:none">
+<p style="font-size:13px;color:var(--mute);margin-bottom:8px">Referral link:</p>
+<code id="ref-link" style="display:block;padding:12px;background:var(--canvas-soft-2);border:1px solid var(--hairline);border-radius:var(--radius-sm);font-size:14px;word-break:break-all"></code>
+<button class="copy-btn" style="margin-top:8px" onclick="copyLink()">Copy link</button>
+</div>
+</div>
+<div class="panel">
+<h2>All referral links</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Email</th><th>Code</th><th>Link</th><th>Clicks</th><th>Conversions</th><th>Reward</th></tr></thead>
+<tbody id="links-table"><tr><td colspan="6" style="text-align:center;color:var(--mute);padding:32px;font-size:13px">Enter a Product ID and click "Load dashboard"</td></tr></tbody>
+</table>
+</div>
+</div>
+</div>
+<script>
+const API_BASE = location.origin;
+async function api(path) { const r=await fetch(API_BASE+path); if(!r.ok) throw await r.text(); return r.json(); }
+let currentProductId = 'demo-app';
+let currentLinks = [];
 
-<div class="container">
+async function refreshDashboard() {
+const pid = document.getElementById('productId').value.trim();
+if (!pid) return alert('Enter a Product ID');
+currentProductId = pid;
+try {
+const links = await api('/api/links?productId='+encodeURIComponent(pid));
+currentLinks = links;
+renderLinks(links);
+const stats = await api('/api/stats/'+encodeURIComponent(pid));
+document.getElementById('stat-links').textContent = stats.totalLinks || 0;
+document.getElementById('stat-clicks').textContent = stats.totalClicks || 0;
+document.getElementById('stat-conversions').textContent = stats.totalConversions || 0;
+document.getElementById('stat-revenue').textContent = '$' + ((stats.totalRewards||0)/100).toFixed(2);
+} catch(e) { alert('Error: '+e); }
+}
 
-  <!-- Tab navigation -->
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('referrals')">Referrals</button>
-    <button class="tab" onclick="switchTab('reviews')">Reviews</button>
-  </div>
+function renderLinks(links) {
+const tbody = document.getElementById('links-table');
+if (!links.length) { tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--mute);padding:32px;font-size:13px">No links yet. Generate one above.</td></tr>'; return; }
+tbody.innerHTML = links.map(l => `<tr>
+<td style="font-weight:500;color:var(--ink)">${esc(l.referrer_email||'—')}</td>
+<td><code>${esc(l.code)}</code></td>
+<td><a href="/ref/${esc(l.code)}" target="_blank" style="font-size:13px">/ref/${esc(l.code)}</a></td>
+<td>${l.clicks||0}</td>
+<td>${l.conversions||0}</td>
+<td>$${((l.reward_balance||0)/100).toFixed(2)}</td>
+</tr>`).join('');
+}
 
-  <!-- Referral panel -->
-  <div id="tab-referrals" class="tab-panel active">
+async function generateLink() {
+const email = document.getElementById('ref-email').value.trim();
+if (!email) return alert('Enter a referrer email');
+try {
+const r = await fetch(API_BASE+'/api/links', {
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body: JSON.stringify({ productId: currentProductId, referrerEmail: email })
+});
+const data = await r.json();
+document.getElementById('ref-link').textContent = window.location.origin + '/ref/' + data.code;
+document.getElementById('link-result').style.display = 'block';
+refreshDashboard();
+} catch(e) { alert('Error: '+e); }
+}
 
-  <!-- Product setup -->
-  <div class="setup">
-    <div class="field">
-      <label>Product ID</label>
-      <input id="productId" type="text" placeholder="my-saas-app" />
-    </div>
-    <button onclick="loadProduct()">Load</button>
-  </div>
+function copyLink() {
+const el = document.getElementById('ref-link');
+navigator.clipboard.writeText(el.textContent).then(() => {
+const btn = document.querySelector('.copy-btn');
+btn.textContent = 'Copied!';
+setTimeout(()=>btn.textContent='Copy link',2000);
+});
+}
 
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-label">Links</div>
-      <div class="stat-value" id="s-links">—</div>
-      <div class="stat-sub">active referral links</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Clicks</div>
-      <div class="stat-value" id="s-clicks">—</div>
-      <div class="stat-sub">total link visits</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Conversions</div>
-      <div class="stat-value" id="s-conv">—</div>
-      <div class="stat-sub">paid sign-ups</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Conv. Rate</div>
-      <div class="stat-value" id="s-rate">—</div>
-      <div class="stat-sub">clicks → paid</div>
-    </div>
-  </div>
+function esc(s) { const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 
-  <!-- Generate link -->
-  <div class="panel">
-    <h2>Generate Referral Link</h2>
-    <div class="row">
-      <div class="field">
-        <label>Customer Email</label>
-        <input id="referrerEmail" type="email" placeholder="customer@example.com" />
-      </div>
-      <div class="field" style="max-width:200px">
-        <label>Stripe Customer ID (optional)</label>
-        <input id="stripeCustomerId" type="text" placeholder="cus_..." />
-      </div>
-      <button onclick="generateLink()">Generate Link</button>
-    </div>
-    <div id="error"></div>
-    <div id="link-result" style="display:none" class="link-result">
-      <code id="link-url"></code>
-      <button class="secondary" onclick="copyLink()">Copy</button>
-    </div>
-  </div>
-
-  <!-- Links table -->
-  <div class="panel">
-    <h2>All Referral Links</h2>
-    <div id="loading">Loading…</div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Referrer</th>
-            <th>Clicks</th>
-            <th>Conversions</th>
-            <th>Rate</th>
-            <th>Reward Balance</th>
-            <th>Link</th>
-          </tr>
-        </thead>
-        <tbody id="links-body">
-          <tr><td colspan="7" class="empty">Load a product to see links</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div><!-- end links table panel -->
-
-  </div><!-- end tab-referrals -->
-
-  <!-- Reviews panel -->
-  <div id="tab-reviews" class="tab-panel">
-
-  <!-- Review product setup -->
-  <div class="setup">
-  <div class="field">
-    <label>Review Product ID</label>
-    <input id="reviewProductId" type="text" placeholder="my-saas-app" />
-  </div>
-  <div class="field">
-    <label>G2 URL (optional)</label>
-    <input id="g2Url" type="text" placeholder="https://www.g2.com/..." />
-  </div>
-  <div class="field">
-    <label>Capterra URL (optional)</label>
-    <input id="capterraUrl" type="text" placeholder="https://www.capterra.com/..." />
-  </div>
-  <button onclick="createReviewProduct()">Setup</button>
-  </div>
-
-  <!-- Review stats -->
-  <div class="stats">
-  <div class="stat">
-    <div class="stat-label">Users Tracked</div>
-    <div class="stat-value" id="rv-users">—</div>
-    <div class="stat-sub">total tracked users</div>
-  </div>
-  <div class="stat">
-    <div class="stat-label">Requests Sent</div>
-    <div class="stat-value" id="rv-requested">—</div>
-    <div class="stat-sub">review requests</div>
-  </div>
-  <div class="stat">
-    <div class="stat-label">Reviews</div>
-    <div class="stat-value" id="rv-submitted">—</div>
-    <div class="stat-sub">submitted reviews</div>
-  </div>
-  <div class="stat">
-    <div class="stat-label">Conversion</div>
-    <div class="stat-value" id="rv-rate">—</div>
-    <div class="stat-sub">tracked → reviewed</div>
-  </div>
-  </div>
-
-  <!-- Track user -->
-  <div class="panel">
-  <h2>Track User Activity</h2>
-  <div class="row">
-    <div class="field">
-      <label>User ID (email or unique ID)</label>
-      <input id="trackUserId" type="text" placeholder="user@example.com" />
-    </div>
-    <div class="field" style="max-width:200px">
-      <label>User Name (optional)</label>
-      <input id="trackUserName" type="text" placeholder="Jane" />
-    </div>
-    <button onclick="trackUser()">Track Usage</button>
-  </div>
-  <div id="track-result" style="margin-top:12px; font-size:14px; display:none;"></div>
-  </div>
-
-  <!-- Manual review request -->
-  <div class="panel">
-  <h2>Request a Review</h2>
-  <div class="row">
-    <div class="field">
-      <label>User ID</label>
-      <input id="requestUserId" type="text" placeholder="user@example.com" />
-    </div>
-    <div class="field" style="max-width:180px">
-      <label>Platform</label>
-      <select id="requestPlatform" style="padding:10px;border:1px solid #ddd;border-radius:6px;font-size:14px;">
-        <option value="g2">G2</option>
-        <option value="capterra">Capterra</option>
-      </select>
-    </div>
-    <button onclick="requestReview()">Send Request</button>
-  </div>
-  </div>
-
-  </div><!-- end tab-reviews -->
-
-  </div>
-
-  <script>
-  let currentProductId = '';
-
-  async function api(path, opts = {}) {
-    const res = await fetch('/api' + path, {
-      headers: { 'Content-Type': 'application/json' },
-      ...opts,
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Request failed');
-    return data;
-  }
-
-  async function loadProduct() {
-    const pid = document.getElementById('productId').value.trim();
-    if (!pid) return;
-    currentProductId = pid;
-    document.getElementById('product-label').textContent = pid;
-    await Promise.all([loadStats(), loadLinks()]);
-  }
-
-  async function loadStats() {
-    try {
-      const s = await api(`/stats/${encodeURIComponent(currentProductId)}`);
-      document.getElementById('s-links').textContent = s.totalLinks;
-      document.getElementById('s-clicks').textContent = s.totalClicks;
-      document.getElementById('s-conv').textContent = s.totalConversions;
-      document.getElementById('s-rate').textContent = s.conversionRate + '%';
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async function loadLinks() {
-    document.getElementById('loading').style.display = 'block';
-    try {
-      const links = await api(`/links?productId=${encodeURIComponent(currentProductId)}`);
-      renderLinks(links);
-    } catch (e) {
-      // endpoint returns stats-only; table populated via generate flow for now
-      renderLinks([]);
-    } finally {
-      document.getElementById('loading').style.display = 'none';
-    }
-  }
-
-  function renderLinks(links) {
-    const tbody = document.getElementById('links-body');
-    if (!links.length) {
-      tbody.innerHTML = '<tr><td colspan="7" class="empty">No referral links yet — generate one above</td></tr>';
-      return;
-    }
-    tbody.innerHTML = links.map(l => {
-      const rate = l.clicks > 0 ? ((l.conversions / l.clicks) * 100).toFixed(0) + '%' : '—';
-      const balance = l.reward_balance != null ? `$${(l.reward_balance / 100).toFixed(2)}` : '—';
-      const badge = l.conversions > 0
-        ? `<span class="badge badge-green">${l.conversions} conv.</span>`
-        : `<span class="badge badge-grey">0 conv.</span>`;
-      return `<tr>
-        <td><code>${l.code}</code></td>
-        <td>${l.referrer_email || '—'}</td>
-        <td>${l.clicks}</td>
-        <td>${badge}</td>
-        <td>${rate}</td>
-        <td>${balance}</td>
-        <td><a href="${l.link_url}" target="_blank" style="color:#6366f1;font-size:12px">Open ↗</a></td>
-      </tr>`;
-    }).join('');
-  }
-
-  async function generateLink() {
-    const errEl = document.getElementById('error');
-    errEl.style.display = 'none';
-
-    if (!currentProductId) {
-      errEl.textContent = 'Load a product first';
-      errEl.style.display = 'block';
-      return;
-    }
-
-    const email = document.getElementById('referrerEmail').value.trim();
-    if (!email) {
-      errEl.textContent = 'Customer email is required';
-      errEl.style.display = 'block';
-      return;
-    }
-
-    try {
-      const data = await api('/links', {
-        method: 'POST',
-        body: JSON.stringify({
-          productId: currentProductId,
-          referrerEmail: email,
-          stripeCustomerId: document.getElementById('stripeCustomerId').value.trim() || undefined,
-        }),
-      });
-
-      document.getElementById('link-url').textContent = data.url;
-      document.getElementById('link-result').style.display = 'flex';
-      await Promise.all([loadStats(), loadLinks()]);
-    } catch (e) {
-      errEl.textContent = e.message;
-      errEl.style.display = 'block';
-    }
-  }
-
-  function copyLink() {
-    const url = document.getElementById('link-url').textContent;
-    navigator.clipboard.writeText(url).then(() => {
-      const btn = document.querySelector('#link-result button');
-      btn.textContent = 'Copied!';
-      setTimeout(() => btn.textContent = 'Copy', 1500);
-    });
-  }
-
-  // Allow Enter key in productId field
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('productId').addEventListener('keydown', e => {
-      if (e.key === 'Enter') loadProduct();
-    });
-  });
-
-  // --- Tab switching ---
-  function switchTab(name) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelector(`.tab:nth-child(${name === 'referrals' ? 1 : 2})`).classList.add('active');
-    document.getElementById('tab-' + name).classList.add('active');
-  }
-
-  // --- Reviews API ---
-  async function reviewApi(path, opts = {}) {
-    const res = await fetch('/api/reviews' + path, {
-      headers: { 'Content-Type': 'application/json', 'x-stripe-customer-id': 'demo' },
-      ...opts,
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Request failed');
-    return data;
-  }
-
-  let reviewProductId = '';
-
-  async function createReviewProduct() {
-    const name = document.getElementById('reviewProductId').value.trim();
-    if (!name) return alert('Product ID required');
-    reviewProductId = name;
-    try {
-      await reviewApi('/products', {
-        method: 'POST',
-        body: JSON.stringify({
-          name,
-          g2Url: document.getElementById('g2Url').value.trim() || undefined,
-          capterraUrl: document.getElementById('capterraUrl').value.trim() || undefined,
-        }),
-      });
-      await loadReviewStats();
-    } catch (e) { alert(e.message); }
-  }
-
-  async function loadReviewStats() {
-    if (!reviewProductId) return;
-    try {
-      const s = await reviewApi(`/stats/${encodeURIComponent(reviewProductId)}`);
-      document.getElementById('rv-users').textContent = s.totalUsers;
-      document.getElementById('rv-requested').textContent = s.reviewRequested;
-      document.getElementById('rv-submitted').textContent = s.reviewSubmitted;
-      document.getElementById('rv-rate').textContent = s.conversionRate + '%';
-    } catch (e) { console.error(e); }
-  }
-
-  async function trackUser() {
-    const uid = document.getElementById('trackUserId').value.trim();
-    if (!uid) return alert('User ID required');
-    if (!reviewProductId) return alert('Setup a review product first');
-    try {
-      const r = await reviewApi('/track', {
-        method: 'POST',
-        body: JSON.stringify({
-          productId: reviewProductId,
-          userId: uid,
-          email: uid.includes('@') ? uid : undefined,
-          name: document.getElementById('trackUserName').value.trim() || undefined,
-        }),
-      });
-      document.getElementById('track-result').style.display = 'block';
-      document.getElementById('track-result').textContent =
-        `Usage count: ${r.usageCount} | Review ready: ${r.reviewReady ? '✅ Yes' : '❌ Not yet'}`;
-      await loadReviewStats();
-    } catch (e) { alert(e.message); }
-  }
-
-  async function requestReview() {
-    const uid = document.getElementById('requestUserId').value.trim();
-    if (!uid) return alert('User ID required');
-    if (!reviewProductId) return alert('Setup a review product first');
-    try {
-      await reviewApi('/request', {
-        method: 'POST',
-        body: JSON.stringify({
-          productId: reviewProductId,
-          userId: uid,
-          platform: document.getElementById('requestPlatform').value,
-        }),
-      });
-      alert('Review request sent!');
-      await loadReviewStats();
-    } catch (e) { alert(e.message); }
-  }
+refreshDashboard();
 </script>
-
 <script defer data-domain="reflinkgen.com" src="https://plausible.io/js/script.js"></script>
 </body>
 </html>
-
-
