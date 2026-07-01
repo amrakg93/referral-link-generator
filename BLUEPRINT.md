@@ -369,9 +369,43 @@ Monthly recurring revenue (MRR)
     └── 50 Pro × $29 = $1,450/mo (profit)
     └── 100 Pro × $29 = $2,900/mo (growth)
     └── 500 Pro × $29 = $14,500/mo (scale)
+    └── 1,000 Pro × $29 = $29,000/mo
+    └── 8,620 Pro × $29 = $250,000/mo (250k MMR target)
 ```
 
 **Key metric:** Referral revenue tracked tells us when users naturally hit the cap — that's the conversion trigger. No artificial upsell popups needed.
+
+### Path to $250k MRR
+
+A single $29/mo tier requires ~8,620 paying customers to hit $250k MRR. The path requires expanding the pricing ladder:
+
+| Tier | Price | Target | Users for $250k MRR |
+|------|-------|--------|-------------------|
+| **Pro** (current) | $29/mo | Indie hackers, early SaaS | 8,620 |
+| **Pro Annual** (current) | $24.92/mo | Cost-conscious founders | 10,032 |
+| **Growth** (planned) | $99/mo | Growing SaaS (10k+ users) | 2,525 |
+| **Scale** (planned) | $299/mo | Agencies, multi-product | 836 |
+| **Enterprise** (planned) | Custom | Large orgs, SLAs | ~20-50 |
+
+**Realistic mix for $250k MRR:**
+```
+60% Pro ($29)        = 5,172 users × $29   = $150k MRR
+25% Growth ($99)     = 631 users × $99     = $62.5k MRR
+10% Scale ($299)     = 84 users × $299     = $25k MRR
+ 5% Enterprise       = ~10 clients × $1.5k = $15k MRR
+```
+
+### How the product makes money
+
+1. **Self-serve subscriptions (Pro)** — Stripe handles billing. $29/mo or $299/yr.
+   Free tier (Starter) acts as lead gen. Users hit $500/mo referral cap → upgrade to Pro.
+2. **No revenue share** — Flat pricing builds trust with indie hackers who hate
+   percentage-based pricing.
+3. **Annual commitment** — $299/yr ($24.92/mo) improves retention + upfront cash.
+4. **Self-hosted is NOT revenue** — Docker/MIT option is free. It drives adoption
+   and word-of-mouth. Revenue comes from the hosted version's convenience value.
+5. **Future upsell paths:** Usage-based add-ons (extra review requests beyond
+   plan), white-label branding ($99/mo), dedicated support ($299/mo).
 
 ---
 
