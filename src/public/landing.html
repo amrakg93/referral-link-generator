@@ -135,10 +135,258 @@ code{font-family:Geist Mono,ui-monospace,monospace;font-size:.875em;background:v
 .testimonials{grid-template-columns:1fr}
 .hero-code{font-size:12px;padding:16px}
 }
+
+/* ════════ PRE-LOADER ════════ */
+#preloader {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: #171717; z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .6s ease, visibility .6s ease;
+}
+#preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.preloader-inner { text-align: center; }
+.preloader-logo { opacity: 0; animation: preloaderFadeIn .8s ease .2s forwards, preloaderPulse 1.2s ease 1s infinite; }
+.preloader-title {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 28px; font-weight: 600; color: #fff;
+  margin-top: 20px;
+  opacity: 0; animation: preloaderFadeIn .6s ease .8s forwards;
+}
+.preloader-sub {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px; color: rgba(255,255,255,.5);
+  margin-top: 8px;
+  opacity: 0; animation: preloaderFadeIn .6s ease 1.2s forwards;
+}
+@keyframes preloaderFadeIn { to { opacity: 1; } }
+@keyframes preloaderPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+/* ════════ SPLASH SECTION ════════ */
+#splash {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background: #fafafa;
+  overflow: hidden;
+  padding: 80px 24px;
+}
+.splash-gradient {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, #007cf0, #00dfd8, #7928ca, #ff0080);
+  opacity: .06;
+  pointer-events: none;
+}
+.splash-content {
+  position: relative; z-index: 1;
+  max-width: 720px; width: 100%;
+  text-align: center;
+}
+.splash-logo-row {
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-bottom: 40px;
+  padding: 8px 20px;
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 100px;
+  font-size: 16px; font-weight: 500; color: #171717;
+}
+.splash-logo-text { font-size: 18px; font-weight: 600; }
+.splash-title {
+  font-size: 52px; font-weight: 600; line-height: 1.1;
+  letter-spacing: -2.6px; color: #171717;
+  margin-bottom: 20px;
+}
+.splash-sub {
+  font-size: 18px; line-height: 1.6; color: #4d4d4d;
+  margin-bottom: 48px; max-width: 560px; margin-left: auto; margin-right: auto;
+}
+.splash-demo {
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 12px;
+  padding: 32px;
+  text-align: left;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.04);
+  animation: demoFadeIn .6s ease 1.5s both;
+}
+@keyframes demoFadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.demo-header {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; font-weight: 500; color: #171717;
+  margin-bottom: 24px; padding-bottom: 16px;
+  border-bottom: 1px solid #ebebeb;
+}
+.demo-badge {
+  padding: 2px 10px; font-size: 11px; font-weight: 500;
+  background: rgba(0,112,243,.08); color: #0070f3;
+  border-radius: 100px; border: 1px solid rgba(0,112,243,.2);
+}
+.demo-step { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px; }
+.demo-step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #f5f5f5; color: #888;
+  font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.demo-step-text { flex: 1; }
+.demo-label { font-size: 13px; font-weight: 500; color: #888; margin-bottom: 8px; }
+.demo-input-row { display: flex; gap: 8px; }
+.demo-input {
+  flex: 1; padding: 10px 14px; font-size: 14px; font-family: inherit;
+  border: 1px solid #ebebeb; border-radius: 6px; outline: none;
+  transition: border-color .15s;
+}
+.demo-input:focus { border-color: #0070f3; }
+.demo-link-field { font-family: Geist Mono, ui-monospace, monospace; font-size: 13px; color: #0070f3; }
+.demo-btn {
+  padding: 10px 20px; font-size: 14px; font-weight: 500; font-family: inherit;
+  background: #171717; color: #fff; border: none; border-radius: 6px;
+  cursor: pointer; white-space: nowrap; transition: background .15s;
+}
+.demo-btn:hover { background: #000; }
+.demo-btn-copy { background: #f5f5f5; color: #171717; border: 1px solid #ebebeb; }
+.demo-btn-copy:hover { background: #ebebeb; }
+.demo-btn-copy.copied { background: #0070f3; color: #fff; border-color: #0070f3; }
+.demo-stat-row { display: flex; gap: 24px; margin-top: 8px; }
+.demo-stat { text-align: center; flex: 1; padding: 12px; background: #fafafa; border-radius: 8px; }
+.demo-stat-num { display: block; font-size: 24px; font-weight: 600; color: #171717; }
+.demo-stat-label { font-size: 12px; color: #888; }
+.splash-flow {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; margin-bottom: 40px;
+  animation: demoFadeIn .6s ease 2s both;
+}
+.flow-step {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 20px; background: #fff;
+  border: 1px solid #ebebeb; border-radius: 100px;
+  font-size: 14px; font-weight: 500; color: #171717;
+}
+.flow-icon { font-size: 18px; }
+.flow-arrow { font-size: 18px; color: #888; font-weight: 300; }
+.splash-enter-btn {
+  padding: 16px 48px; font-size: 18px; font-weight: 500; font-family: inherit;
+  background: #171717; color: #fff; border: none; border-radius: 6px;
+  cursor: pointer; transition: background .15s, transform .15s;
+  animation: demoFadeIn .6s ease 2.2s both;
+}
+.splash-enter-btn:hover { background: #000; transform: translateY(-2px); }
+.splash-skip {
+  margin-top: 16px; font-size: 13px; color: #888;
+  animation: demoFadeIn .6s ease 2.4s both;
+}
+#splash.hidden-splash { display: none; }
+.demo-step-hidden { display: none; }
+
+@media (max-width: 639px) {
+  .splash-title { font-size: 32px; letter-spacing: -1.2px; }
+  .splash-demo { padding: 20px; }
+  .demo-input-row { flex-direction: column; }
+  .demo-stat-row { flex-direction: column; gap: 12px; }
+  .splash-flow { flex-direction: column; gap: 8px; }
+  .flow-arrow { transform: rotate(90deg); }
+}
 </style>
 </head>
 <body>
 
+
+<!-- ════════ PRE-LOADER ════════ -->
+<div id="preloader">
+  <div class="preloader-inner">
+    <svg class="preloader-logo" width="80" height="80" viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" rx="10" fill="#fff"/>
+      <path d="M14 24c0-3.3 2.7-6 6-6h4v3h-4a3 3 0 0 0-3 3 3 3 0 0 0 3 3h4v3h-4a6 6 0 0 1-6-6z" fill="#171717"/>
+      <path d="M24 18h4a6 6 0 0 1 0 12h-4v-3h4a3 3 0 0 0 3-3 3 3 0 0 0-3-3h-4v-3z" fill="#171717"/>
+      <path d="M22 20l6 4-6 4v-8z" fill="#0070f3"/>
+    </svg>
+    <div class="preloader-title">Referral Link Generator</div>
+    <div class="preloader-sub">Stripe-native referral engine</div>
+  </div>
+</div>
+
+<!-- ════════ DYNAMIC SPLASH ════════ -->
+<section id="splash">
+  <div class="splash-gradient"></div>
+  <div class="splash-content">
+    <div class="splash-logo-row">
+      <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+        <rect width="48" height="48" rx="10" fill="#171717"/>
+        <path d="M14 24c0-3.3 2.7-6 6-6h4v3h-4a3 3 0 0 0-3 3 3 3 0 0 0 3 3h4v3h-4a6 6 0 0 1-6-6z" fill="#fff"/>
+        <path d="M24 18h4a6 6 0 0 1 0 12h-4v-3h4a3 3 0 0 0 3-3 3 3 0 0 0-3-3h-4v-3z" fill="#fff"/>
+        <path d="M22 20l6 4-6 4v-8z" fill="#0070f3"/>
+      </svg>
+      <span class="splash-logo-text">RefLinkGen</span>
+    </div>
+
+    <h1 class="splash-title">Turn customers into<br>your best sales channel</h1>
+    <p class="splash-sub">A Stripe-native referral engine that takes 2 minutes to set up<br>and handles tracking, attribution, and rewards automatically.</p>
+
+    <!-- Interactive demo widget -->
+    <div class="splash-demo" id="splashDemo">
+      <div class="demo-header">
+        <span class="demo-badge">Live demo</span>
+        <span>Your Referral Program</span>
+      </div>
+      <div class="demo-body">
+        <div class="demo-step" id="demoStep1">
+          <div class="demo-step-num">1</div>
+          <div class="demo-step-text">
+            <div class="demo-label">Enter referrer email</div>
+            <div class="demo-input-row">
+              <input type="email" id="demoEmail" class="demo-input" placeholder="referrer@example.com" value="alex@startup.io">
+              <button id="demoGenBtn" class="demo-btn">Generate link</button>
+            </div>
+          </div>
+        </div>
+        <div class="demo-step" id="demoStep2">
+          <div class="demo-step-num">2</div>
+          <div class="demo-step-text">
+            <div class="demo-label">Share this referral link</div>
+            <div class="demo-input-row">
+              <input type="text" id="demoLink" class="demo-input demo-link-field" readonly value="reflinkgen.com/ref/A1B2C3D4">
+              <button id="demoCopyBtn" class="demo-btn demo-btn-copy">Copy</button>
+            </div>
+          </div>
+        </div>
+        <div class="demo-step" id="demoStep3">
+          <div class="demo-step-num">3</div>
+          <div class="demo-step-text">
+            <div class="demo-label">When a friend checks out &rarr; you earn $10</div>
+            <div class="demo-stat-row">
+              <div class="demo-stat">
+                <span class="demo-stat-num" id="demoClicks">0</span>
+                <span class="demo-stat-label">Clicks</span>
+              </div>
+              <div class="demo-stat">
+                <span class="demo-stat-num" id="demoConversions">0</span>
+                <span class="demo-stat-label">Conversions</span>
+              </div>
+              <div class="demo-stat">
+                <span class="demo-stat-num" id="demoEarned">$0</span>
+                <span class="demo-stat-label">Earned</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animated flow visual -->
+    <div class="splash-flow">
+      <div class="flow-step"><span class="flow-icon">🔗</span><span>Generate link</span></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step"><span class="flow-icon">📤</span><span>Share with friend</span></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step"><span class="flow-icon">💰</span><span>Earn reward</span></div>
+    </div>
+
+    <button id="enterBtn" class="splash-enter-btn">Start exploring &rarr;</button>
+    <p class="splash-skip" id="skipHint">or scroll down to learn more</p>
+  </div>
+</section>
 <nav class="nav">
   <div class="container nav-inner">
     <a href="/" class="nav-logo">
@@ -418,5 +666,108 @@ code{font-family:Geist Mono,ui-monospace,monospace;font-size:.875em;background:v
 </footer>
 
 <script defer data-domain="reflinkgen.com" src="https://plausible.io/js/script.js"></script>
+
+<!-- ════════ SPLASH/PRE-LOADER SCRIPT ════════ -->
+<script>
+(function() {
+  var preloader = document.getElementById('preloader');
+  var splash = document.getElementById('splash');
+
+  function hidePreloader() {
+    preloader.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+  setTimeout(hidePreloader, 3500);
+
+  var demoEmail = document.getElementById('demoEmail');
+  var demoGenBtn = document.getElementById('demoGenBtn');
+  var demoCopyBtn = document.getElementById('demoCopyBtn');
+  var demoLink = document.getElementById('demoLink');
+  var step1 = document.getElementById('demoStep1');
+  var step2 = document.getElementById('demoStep2');
+  var step3 = document.getElementById('demoStep3');
+  var demoClicks = document.getElementById('demoClicks');
+  var demoConversions = document.getElementById('demoConversions');
+  var demoEarned = document.getElementById('demoEarned');
+  var enterBtn = document.getElementById('enterBtn');
+
+  var simData = [
+    { clicks: 3, conv: 1, earned: 10 },
+    { clicks: 7, conv: 2, earned: 20 },
+    { clicks: 12, conv: 3, earned: 30 },
+    { clicks: 18, conv: 5, earned: 50 },
+    { clicks: 25, conv: 7, earned: 70 },
+    { clicks: 33, conv: 9, earned: 90 },
+    { clicks: 40, conv: 12, earned: 120 },
+  ];
+  var simIdx = 0;
+  var simTimer = null;
+
+  function generateLink() {
+    var code = '';
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    for (var i = 0; i < 8; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+    demoLink.value = 'reflinkgen.com/ref/' + code;
+    demoClicks.textContent = '0';
+    demoConversions.textContent = '0';
+    demoEarned.textContent = '$0';
+    simIdx = 0;
+    if (simTimer) clearInterval(simTimer);
+    simTimer = null;
+  }
+
+  function startSim() {
+    if (simTimer) clearInterval(simTimer);
+    simIdx = 0;
+    demoClicks.textContent = '0';
+    demoConversions.textContent = '0';
+    demoEarned.textContent = '$0';
+    simTimer = setInterval(function() {
+      if (simIdx >= simData.length) { clearInterval(simTimer); simTimer = null; return; }
+      var r = simData[simIdx];
+      demoClicks.textContent = r.clicks;
+      demoConversions.textContent = r.conv;
+      demoEarned.textContent = '$' + r.earned;
+      simIdx++;
+    }, 1000);
+  }
+
+  setTimeout(function() { generateLink(); setTimeout(startSim, 1800); }, 3700);
+
+  demoGenBtn.addEventListener('click', function() {
+    if (demoEmail.value.trim() === '') { demoEmail.focus(); return; }
+    generateLink();
+    setTimeout(startSim, 1000);
+  });
+
+  demoCopyBtn.addEventListener('click', function() {
+    demoLink.select();
+    demoLink.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(demoLink.value).catch(function(){});
+    demoCopyBtn.textContent = 'Copied!';
+    demoCopyBtn.classList.add('copied');
+    setTimeout(function() { demoCopyBtn.textContent = 'Copy'; demoCopyBtn.classList.remove('copied'); }, 2000);
+  });
+
+  enterBtn.addEventListener('click', function() {
+    splash.classList.add('hidden-splash');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    hidePreloader();
+  });
+
+  var onScroll = function() {
+    if (window.scrollY > window.innerHeight * 0.5) {
+      splash.classList.add('hidden-splash');
+      hidePreloader();
+      window.removeEventListener('scroll', onScroll);
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  demoEmail.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') demoGenBtn.click();
+  });
+})();
+</script>
 </body>
 </html>
